@@ -10,7 +10,7 @@ namespace TrainingManager.DataAccess.DAOs;
 
 public class EmployeeDAO : BaseDAO, IEmployeeDAO
 {
-    private readonly string GET_ALL_EMPLOYEES = "";
+    private readonly string GET_ALL_EMPLOYEES = ""
 
     public EmployeeDAO(string connectionString) : base(connectionString)
     {
