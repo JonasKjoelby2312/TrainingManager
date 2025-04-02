@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingManager.Server", "T
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "trainingmanager.client", "trainingmanager.client\trainingmanager.client.esproj", "{CCC04114-939B-4303-B919-A260CF546283}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingManager.DataAccess", "TrainingManager.DataAccess\TrainingManager.DataAccess.csproj", "{00A1EC07-D1FB-4512-83D8-B63D93EFE190}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{CCC04114-939B-4303-B919-A260CF546283}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCC04114-939B-4303-B919-A260CF546283}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CCC04114-939B-4303-B919-A260CF546283}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{00A1EC07-D1FB-4512-83D8-B63D93EFE190}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00A1EC07-D1FB-4512-83D8-B63D93EFE190}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00A1EC07-D1FB-4512-83D8-B63D93EFE190}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00A1EC07-D1FB-4512-83D8-B63D93EFE190}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
