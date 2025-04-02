@@ -11,6 +11,7 @@ namespace TrainingManager.DataAccess.DAOs;
 public class EmployeeDAO : BaseDAO, IEmployeeDAO
 {
     private readonly string GET_ALL_EMPLOYEES = "";
+    private readonly string GET_TRAINING_STATUS = "";
 
     public EmployeeDAO(string connectionString) : base(connectionString)
     {
@@ -28,6 +29,16 @@ public class EmployeeDAO : BaseDAO, IEmployeeDAO
         try
         {
             var employees = await connection.QueryAsync<Employee>(GET_ALL_EMPLOYEES);
+
+            foreach (Employee employee in employees)
+            {
+                var trainingStatuses = await connection.QueryAsync(GET_TRAINING_STATUS, new { Initials = employee.Initials });
+                foreach (var status in trainingStatuses)
+                {
+                    employee.EmployeeTrainingStatuses.Add(status.procedureName, status.trainingStatus);
+                }
+            }
+
             connection.Close();
             return employees;
         }
