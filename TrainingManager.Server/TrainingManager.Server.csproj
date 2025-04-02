@@ -23,6 +23,7 @@
     <ProjectReference Include="..\trainingmanager.client\trainingmanager.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\TrainingManager.DataAccess\TrainingManager.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

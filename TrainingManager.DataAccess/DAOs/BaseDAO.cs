@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TrainingManager.DataAccess.DAOs;
 
-public class BaseDAO
+public abstract class BaseDAO
 {
 
     private string _connectionstring;

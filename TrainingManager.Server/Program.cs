@@ -1,4 +1,7 @@
 
+using System.Runtime.CompilerServices;
+using TrainingManager.DataAccess.DAOs;
+
 namespace TrainingManager.Server
 {
     public class Program
@@ -13,6 +16,13 @@ namespace TrainingManager.Server
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+
+            //SSMS connection string:
+            const string connectionString = "Data Source=.;Initial Catalog=TrainingManager;Integrated Security=True";
+
+            builder.Services.AddSingleton<IEmployeeDAO>((_) => (IEmployeeDAO)new EmployeeDAO(connectionString));
+
 
             var app = builder.Build();
 
