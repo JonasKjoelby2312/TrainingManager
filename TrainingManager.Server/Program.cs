@@ -19,7 +19,7 @@ namespace TrainingManager.Server
 
 
             //SSMS connection string:
-            const string connectionString = "Data Source=.;Initial Catalog=TrainingManager;Integrated Security=True";
+            const string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=TrainingManager;Integrated Security=True";
 
             builder.Services.AddSingleton<IEmployeeDAO>((_) => (IEmployeeDAO)new EmployeeDAO(connectionString));
 

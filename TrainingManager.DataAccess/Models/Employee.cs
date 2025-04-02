@@ -14,4 +14,9 @@ public class Employee
     public List<string> Roles { get; set; }
     public Dictionary<Procedure, string>? EmployeeTrainingStatuses { get; set; }
     public bool IsActive { get; set; }
+
+    public Employee()
+    {
+        
+    }
 }
