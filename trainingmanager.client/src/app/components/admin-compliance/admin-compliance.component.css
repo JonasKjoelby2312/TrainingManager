@@ -1,0 +1,17 @@
+.initials-table {
+  width: 50%;
+  border-collapse: collapse;
+  margin: 50px auto;
+  text-align: center;
+}
+
+  .initials-table th, .initials-table td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .initials-table thead {
+    background-color: gray;
+    color: white;
+  }

@@ -1,1 +1,15 @@
-<p>admin-compliance works!</p>
+<!-- initials-table.component.html -->
+<table class="initials-table">
+  <thead>
+    <tr>
+      <th>Employee Name</th>
+      <th>Initials</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let employee of employees">
+      <td>{{ employee.initials }}</td>
+      
+    </tr>
+  </tbody>
+</table>

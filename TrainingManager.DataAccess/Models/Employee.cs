@@ -8,7 +8,7 @@ namespace TrainingManager.DataAccess.Models;
 
 public class Employee
 {
-    public int Id { get; set; }
+    public int EmployeeId { get; set; }
     public string Initials { get; set; }
     public string Email { get; set; }
     public List<string> Roles { get; set; }

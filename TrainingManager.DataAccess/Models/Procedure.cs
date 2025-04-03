@@ -13,4 +13,9 @@ public class Procedure
     public decimal RevisionNumber { get; set; }
     public bool IsActive { get; set; }
     public string HistoryText { get; set; }
+
+    public Procedure()
+    {
+        
+    }
 }

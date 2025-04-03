@@ -1,14 +1,71 @@
-﻿:host {
-    max-width: 1280px;
-    padding: 2rem;
-    text-align: center;
+/* Reset default margin and padding */
+{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-th, td {
-    padding-left: 1rem;
-    padding-right: 1rem;
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; 
 }
 
-table {
-    margin: 0 auto;
+.navbar {
+  display: flex;
+  flex-direction: row;
+  background-color: #1E90FF; / Match the background color of non-selected items /
+  padding: 10px;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); / Optional: Add a shadow for better separation /
+}
+
+.nav-item {
+  flex: 1;
+  text-align: center;
+  background-color: #1E90FF;
+  padding: 15px;
+  color: black;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none; / Remove underline from links /
+}
+
+.nav-item:hover {
+  background-color: #00BFFF;
+}
+
+  .nav-item.active {
+    background-color: #3547b8;
+    / Dark blue color for active item / color: #00BFFF;
+  }
+
+.icon {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex; / Use flex to center the icon /
+  align-items: center; / Center vertically /
+  justify-content: center; / Center horizontally /
+  margin-left: auto; / Pushes the profile icon to the right /
+}
+
+/ Additional styles to ensure content does not overflow /
+.container {
+  max-width: 1200px; / Optional: Set a max width for the main content /
+  margin: 0 auto; / Center the content /
+  padding: 20px; / Optional: Add some padding */
 }

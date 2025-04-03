@@ -13,6 +13,7 @@ interface WeatherForecast {
   templateUrl: './app.component.html',
   standalone: false,
   styleUrl: './app.component.css'
+ 
 })
 export class AppComponent implements OnInit {
   public forecasts: WeatherForecast[] = [];
