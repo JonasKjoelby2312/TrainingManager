@@ -1,15 +1,20 @@
-<!-- initials-table.component.html -->
-<table class="initials-table">
+
+
+<table class="training-table">
   <thead>
     <tr>
-      <th>Employee Name</th>
-      <th>Initials</th>
+      <th>Document</th>
+      <th *ngFor="let initials of employeeInitials">{{ initials }}</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let employee of employees">
-      <td>{{ employee.initials }}</td>
-      
+    <tr *ngFor="let row of tableRows">
+      <td>{{ row.procedure }}</td>
+      <td *ngFor="let initials of employeeInitials"
+          [ngClass]="getCssClass(row[initials])">
+        {{ row[initials] || '-' }}
+      </td>
     </tr>
   </tbody>
 </table>
+

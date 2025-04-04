@@ -17,6 +17,15 @@ namespace TrainingManager.Server
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.WithOrigins("https://localhost:4200")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
 
             //SSMS connection string:
             const string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=TrainingManager;Integrated Security=True";
@@ -35,6 +44,7 @@ namespace TrainingManager.Server
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseCors();
 
             app.UseHttpsRedirection();
 

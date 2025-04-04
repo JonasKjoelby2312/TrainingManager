@@ -1,17 +1,31 @@
-.initials-table {
-  width: 50%;
+
+
+.training-table {
   border-collapse: collapse;
-  margin: 50px auto;
-  text-align: center;
+  width: 100%;
 }
 
-  .initials-table th, .initials-table td {
-    border: 1px solid black;
-    padding: 10px;
+  .training-table th,
+  .training-table td {
+    padding: 8px;
     text-align: center;
+    border: 1px solid #ccc;
   }
 
-  .initials-table thead {
-    background-color: gray;
-    color: white;
-  }
+.completed {
+  background-color: #c8e6c9;
+}
+
+.missing {
+  background-color: #ffcdd2;
+}
+
+.optional {
+  background-color: #eeeeee;
+}
+
+.placeholder {
+  background-color: #f0f0f0;
+  color: #aaa;
+}
+
