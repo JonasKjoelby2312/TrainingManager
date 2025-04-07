@@ -11,6 +11,7 @@ public class Employee
     public int EmployeeId { get; set; }
     public string Initials { get; set; }
     public string Email { get; set; }
+    public string RolesAsString { get; set; }
     public List<string> Roles { get; set; }
     public Dictionary<string, string>? EmployeeTrainingStatuses { get; set; }
     public bool IsActive { get; set; }
