@@ -1,8 +1,17 @@
 
-
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Employees, EmployeeService } from '../services/Employee.Services';
+//import { Employees, EmployeeService } from '../services/Employee.Services';
 
+interface Employee {
+  initials: string;
+  email: string;
+  isActive: boolean;
+  roles: string[];
+  employeeTrainingStatuses: {
+    [procedureName: string]: string;
+  };
+}
 
 @Component({
   selector: 'app-admin-compliance',
@@ -11,19 +20,19 @@ import { Employees, EmployeeService } from '../services/Employee.Services';
   standalone: false
 })
 export class AdminComplianceComponent implements OnInit {
-  employees: Employees[] = [];
+  employees: Employee[] = [];
   tableRows: any[] = [];
   employeeInitials: string[] = [];
 
-  constructor(private employeeService: EmployeeService) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.employeeService.getAllEmployees().subscribe(data => {
-      console.log('API response:', data); 
 
+    this.http.get<Employee[]>('https://localhost:7227/api/AdminComplienceOverview').subscribe(data => {
+      console.log('API response: ', data)
       this.employees = data;
       this.employeeInitials = data.map(e => e.initials);
-      console.log('Initials:', this.employeeInitials); 
+      console.log('Initials:', this.employeeInitials);
 
       const procedureMap: { [procedure: string]: any } = {};
       for (const employee of data) {
@@ -36,7 +45,7 @@ export class AdminComplianceComponent implements OnInit {
       }
 
       this.tableRows = Object.values(procedureMap);
-      console.log('Table rows:', this.tableRows); 
+      console.log('Table rows:', this.tableRows);
     });
   }
 
@@ -51,7 +60,7 @@ export class AdminComplianceComponent implements OnInit {
       case 'training optional':
         return 'optional';
       case 'place holder':
-        return 'placeholder'; 
+        return 'placeholder';
       default:
         return '';
     }
