@@ -22,7 +22,7 @@ namespace TrainingManager.WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetAsync()
         {
-            var employees = await _employeeDAO.GetAllAsync();
+            var employees = await _employeeDAO.GetAllEmployeesAndStatusesAsync();
             return Ok(employees);
         }
 
