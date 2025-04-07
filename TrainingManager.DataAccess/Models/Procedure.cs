@@ -9,7 +9,7 @@ namespace TrainingManager.DataAccess.Models;
 public class Procedure
 {
     public int Id { get; set; }
-    public string Name { get; set; }
+    public string ProcedureName { get; set; }
     public decimal RevisionNumber { get; set; }
     public bool IsActive { get; set; }
     public string HistoryText { get; set; }

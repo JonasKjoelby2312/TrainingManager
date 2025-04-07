@@ -10,7 +10,7 @@ namespace TrainingManager.DataAccess.DAOs;
 
 public class ProcedureDAO : BaseDAO, IProcedureDAO
 {
-    private readonly string GET_ALL_PROCEDURES = "";
+    private readonly string GET_ALL_PROCEDURES_WITH_REVISIONS = "SELECT tp.procedure_name AS ProcedureName, r.revision AS RevisionNumber, r.revision_is_active AS IsActive, r.revision_history_text AS HistoryText FROM treat_procedures tp JOIN revisions r ON tp.fk_revision_id = r.revision_id WHERE r.revision_is_active = 1 ORDER BY tp.procedure_name;";
 
     public ProcedureDAO(string connectionString) : base(connectionString)
     {
@@ -21,13 +21,13 @@ public class ProcedureDAO : BaseDAO, IProcedureDAO
         throw new NotImplementedException();
     }
 
-    public async Task<IEnumerable<Procedure>> GetAllAsync()
+    public async Task<IEnumerable<Procedure>> GetAllPorceduresWithRevisionsAsync()
     {
         using var connection = CreateConnection();
         connection.Open();
         try
         {
-            var procedures = await connection.QueryAsync<Procedure>(GET_ALL_PROCEDURES);
+            var procedures = await connection.QueryAsync<Procedure>(GET_ALL_PROCEDURES_WITH_REVISIONS);
             connection.Close();
             return procedures;
         }

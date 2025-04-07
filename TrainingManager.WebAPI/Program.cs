@@ -29,8 +29,11 @@ public class Program
 
         //SSMS connection string:
         const string connectionString = "Server=tcp:hildur.ucn.dk,1433;Database=DMA-CSD-S232_10503097;User ID=DMA-CSD-S232_10503097;Password=Password1!;";
+        
 
         builder.Services.AddSingleton<IEmployeeDAO>((_) => (IEmployeeDAO)new EmployeeDAO(connectionString));
+        builder.Services.AddSingleton<IProcedureDAO>(_ => new ProcedureDAO(connectionString));
+
 
 
         var app = builder.Build();

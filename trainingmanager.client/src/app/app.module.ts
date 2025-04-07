@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminComplianceComponent } from './components/admin-compliance/admin-compliance.component';
 import { EmployeesComponent } from './components/employees/employees.component';
+import { ProcedureComponent } from './components/procedure/procedure.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminComplianceComponent,
-    EmployeesComponent
+    EmployeesComponent,
+    ProcedureComponent
   ],
   imports: [
     BrowserModule, HttpClientModule,
