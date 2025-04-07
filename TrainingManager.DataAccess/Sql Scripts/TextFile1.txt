@@ -17,13 +17,101 @@ ORDER BY e.employee_id;
 
 GET_TRAINING_STATUS
 (
+WITH selected_employee AS (
+    SELECT employee_id, employee_initials
+    FROM employees
+    WHERE employee_initials = 'mm'
+),
+active_procedures AS (
+    SELECT tp.procedure_id, tp.procedure_name
+    FROM treat_procedures tp
+    JOIN revisions r ON tp.fk_revision_id = r.revision_id
+    WHERE r.revision_is_active = 1
+),
+employee_roles_expanded AS (
+    SELECT er.fk_role_id
+    FROM selected_employee se
+    JOIN employee_roles er ON se.employee_id = er.fk_employee_id
+),
+training_status_base AS (
+    SELECT 
+        ap.procedure_name,
+        MAX(
+            CASE 
+                WHEN t.ticket_id IS NOT NULL THEN 3
+                WHEN rtt.required_type = 1 THEN 2
+                WHEN rtt.required_type = 2 THEN 1
+                ELSE 0
+            END
+        ) AS StatusRank
+    FROM active_procedures ap
+    CROSS JOIN selected_employee se
+    LEFT JOIN employee_roles er ON er.fk_employee_id = se.employee_id
+    LEFT JOIN required_training_types rtt 
+        ON rtt.fk_role_id = er.fk_role_id 
+        AND rtt.fk_treat_procedure_id = ap.procedure_id
+    LEFT JOIN tickets t 
+        ON t.fk_employee_id = se.employee_id 
+        AND t.fk_treat_procedure_id = ap.procedure_id
+    GROUP BY ap.procedure_name
+)
 SELECT 
-e.employee_id AS EmployeeId,
-e.employee_initials AS Initials,
-e.employee_email AS Email,
-e.employee_is_active AS IsActive,
-STRING_AGG(tr.role_name, ', ') AS Roles 
-FROM employees e\r\nLEFT JOIN employee_roles er ON er.fk_employee_id = e.employee_id\r\nLEFT JOIN treat_roles tr ON tr.role_id = er.fk_role_id\r\nGROUP BY \r\n    e.employee_id, e.employee_initials, e.employee_email, e.employee_is_active\r\nORDER BY e.employee_id;
+    procedure_name,
+    CASE StatusRank
+        WHEN 3 THEN 'Training Completed'
+        WHEN 2 THEN 'Training Missing'
+        WHEN 1 THEN 'Training Optional'
+        ELSE 'Place holder'
+    END AS TrainingStatus
+FROM training_status_base
+ORDER BY procedure_name;WITH selected_employee AS (
+    SELECT employee_id, employee_initials
+    FROM employees
+    WHERE employee_initials = 'mm'
+),
+active_procedures AS (
+    SELECT tp.procedure_id, tp.procedure_name
+    FROM treat_procedures tp
+    JOIN revisions r ON tp.fk_revision_id = r.revision_id
+    WHERE r.revision_is_active = 1
+),
+employee_roles_expanded AS (
+    SELECT er.fk_role_id
+    FROM selected_employee se
+    JOIN employee_roles er ON se.employee_id = er.fk_employee_id
+),
+training_status_base AS (
+    SELECT 
+        ap.procedure_name,
+        MAX(
+            CASE 
+                WHEN t.ticket_id IS NOT NULL THEN 3
+                WHEN rtt.required_type = 1 THEN 2
+                WHEN rtt.required_type = 2 THEN 1
+                ELSE 0
+            END
+        ) AS StatusRank
+    FROM active_procedures ap
+    CROSS JOIN selected_employee se
+    LEFT JOIN employee_roles er ON er.fk_employee_id = se.employee_id
+    LEFT JOIN required_training_types rtt 
+        ON rtt.fk_role_id = er.fk_role_id 
+        AND rtt.fk_treat_procedure_id = ap.procedure_id
+    LEFT JOIN tickets t 
+        ON t.fk_employee_id = se.employee_id 
+        AND t.fk_treat_procedure_id = ap.procedure_id
+    GROUP BY ap.procedure_name
+)
+SELECT 
+    procedure_name,
+    CASE StatusRank
+        WHEN 3 THEN 'Training Completed'
+        WHEN 2 THEN 'Training Missing'
+        WHEN 1 THEN 'Training Optional'
+        ELSE 'Place holder'
+    END AS TrainingStatus
+FROM training_status_base
+ORDER BY procedure_name;
 )
 
 DATABASE SCRIPT
