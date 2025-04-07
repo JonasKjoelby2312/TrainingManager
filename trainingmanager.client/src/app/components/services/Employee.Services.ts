@@ -15,7 +15,8 @@ export interface Employees {
 // employee.service.ts
 @Injectable({ providedIn: 'root' })
 export class EmployeeService {
-  private apiUrl = 'https://localhost:7139/api/AdminComplienceOverview'; 
+  //private apiUrl = 'https://localhost:7139/api/AdminComplienceOverview';
+  private apiUrl = 'https://localhost:7227/api/AdminComplienceOverview';
 
   constructor(private http: HttpClient) { }
 

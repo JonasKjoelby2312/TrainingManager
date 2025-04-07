@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingManager.Server", "TrainingManager.Server\TrainingManager.Server.csproj", "{AD21D7F8-106E-413A-9A50-87F351BC8895}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingManager.Server", "TrainingManager.Server\TrainingManager.Server.csproj", "{AD21D7F8-106E-413A-9A50-87F351BC8895}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "trainingmanager.client", "trainingmanager.client\trainingmanager.client.esproj", "{CCC04114-939B-4303-B919-A260CF546283}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingManager.DataAccess", "TrainingManager.DataAccess\TrainingManager.DataAccess.csproj", "{00A1EC07-D1FB-4512-83D8-B63D93EFE190}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingManager.DataAccess", "TrainingManager.DataAccess\TrainingManager.DataAccess.csproj", "{00A1EC07-D1FB-4512-83D8-B63D93EFE190}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingManager.WebAPI", "TrainingManager.WebAPI\TrainingManager.WebAPI.csproj", "{DD7218CE-2499-45A7-8E55-8F50162DF8DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{00A1EC07-D1FB-4512-83D8-B63D93EFE190}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00A1EC07-D1FB-4512-83D8-B63D93EFE190}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00A1EC07-D1FB-4512-83D8-B63D93EFE190}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD7218CE-2499-45A7-8E55-8F50162DF8DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD7218CE-2499-45A7-8E55-8F50162DF8DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD7218CE-2499-45A7-8E55-8F50162DF8DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD7218CE-2499-45A7-8E55-8F50162DF8DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
