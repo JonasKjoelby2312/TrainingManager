@@ -10,7 +10,8 @@ namespace TrainingManager.DataAccess.DAOs;
 public interface IEmployeeDAO
 {
     Task<int> CreateAsync(Employee entity);
-    Task<IEnumerable<Employee>> GetAllAsync();
+    Task<IEnumerable<Employee>> GetAllEmployeesAndStatusesAsync();
+    Task<IEnumerable<Employee>> GetAllEmployeesAsync();
     Task<Employee> GetByIdAsync(int id);
     Task<int> UpdateAsync(Employee entity);
 }

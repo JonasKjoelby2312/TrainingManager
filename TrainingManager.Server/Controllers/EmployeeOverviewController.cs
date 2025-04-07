@@ -8,44 +8,43 @@ namespace TrainingManager.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AdminComplienceOverviewController : ControllerBase
+    public class EmployeeOverviewController : ControllerBase
     {
         private IEmployeeDAO _employeeDAO;
 
-        public AdminComplienceOverviewController(IEmployeeDAO employeeDAO)
+        public EmployeeOverviewController(IEmployeeDAO EmployeeDAO)
         {
-            _employeeDAO = employeeDAO;
+            _employeeDAO = EmployeeDAO;
         }
 
-        // GET: api/<AdminComplienceOverviewController>
-        //Det er den her vi bruger pt
+        // GET: api/<EmployeeOverviewController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetAsync()
         {
-            IEnumerable<Employee> employees = await _employeeDAO.GetAllEmployeesAndStatusesAsync();
+            IEnumerable<Employee> employees = await _employeeDAO.GetAllEmployeesAsync();
             return Ok(employees);
         }
 
-        // GET api/<AdminComplienceOverviewController>/5
+        // GET api/<EmployeeOverviewController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<AdminComplienceOverviewController>
+        // POST api/<EmployeeOverviewController>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<AdminComplienceOverviewController>/5
+        // PUT api/<EmployeeOverviewController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<AdminComplienceOverviewController>/5
+        // DELETE api/<EmployeeOverviewController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

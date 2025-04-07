@@ -22,7 +22,7 @@ public class EmployeeDAO : BaseDAO, IEmployeeDAO
         throw new NotImplementedException();
     }
 
-    public async Task<IEnumerable<Employee>> GetAllAsync()
+    public async Task<IEnumerable<Employee>> GetAllEmployeesAndStatusesAsync()
     {
         using var connection = CreateConnection();
         connection.Open();
@@ -45,6 +45,23 @@ public class EmployeeDAO : BaseDAO, IEmployeeDAO
         catch (Exception ex)
         {
             throw new Exception($"Couldn't get all employees, message was: {ex.Message}", ex);
+        }
+    }
+
+    public async Task<IEnumerable<Employee>> GetAllEmployeesAsync()
+    {
+        using var connection = CreateConnection();
+        connection.Open();
+        try
+        {
+            var employees = await connection.QueryAsync<Employee>(GET_ALL_EMPLOYEES);
+
+            connection.Close();
+            return employees;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Could not get all employees, message was: {ex.Message}", ex);
         }
     }
 
