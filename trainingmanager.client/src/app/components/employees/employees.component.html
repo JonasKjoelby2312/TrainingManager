@@ -10,10 +10,11 @@
     <tr *ngFor="let employee of tableRows">
       <td>{{ employee.initials }}</td>
       <td>{{ employee.email }}</td>
-      <td>{{ employee.roles }}</td>
+      <td>
+        <div class="roles-container">
+          <span *ngFor ="let role of employee.roles" class="role-badge">{{ role }}</span>
+        </div>
+      </td>
     </tr>
   </tbody>
 </table>
-
-
-<p>employees works!</p>
