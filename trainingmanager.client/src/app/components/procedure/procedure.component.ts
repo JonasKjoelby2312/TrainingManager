@@ -14,7 +14,7 @@ export class ProcedureComponent implements OnInit {
 
   ngOnInit(): void {
     this.procedureService.getProcedureRevisions().subscribe({
-      next: (data) => { console.log('Loaded procedures:', data),  this.procedures = data;}
+      next: (data) => { this.procedures = data;}
       
     });
   }
