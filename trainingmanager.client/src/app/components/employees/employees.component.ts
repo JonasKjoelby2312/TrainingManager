@@ -25,7 +25,6 @@ export class EmployeesComponent {
 
   ngOnInit() {
     this.http.get<Employee[]>('https://localhost:7227/api/AdminComplienceOverview').subscribe(data => {
-
-    });
+      this.tableRows = data }, error => console.log(error));
   }
 }
