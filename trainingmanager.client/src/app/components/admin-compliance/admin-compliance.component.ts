@@ -35,7 +35,10 @@ export class AdminComplianceComponent implements OnInit {
       console.log('Initials:', this.employeeInitials);
 
       const procedureMap: { [procedure: string]: any } = {};
-      for (const employee of data) {
+
+      //Laver en række for hver procedure hvis den ikke eksistere endnu.
+      //Sætter værdien for emplyee's column i det row
+      for (const employee of data) { 
         for (const [procedure, status] of Object.entries(employee.employeeTrainingStatuses)) {
           if (!procedureMap[procedure]) {
             procedureMap[procedure] = { procedure };
