@@ -53,14 +53,14 @@ export class AdminComplianceComponent implements OnInit {
   getCssClass(status: string | undefined): string {
     if (!status) return '';
     switch (status.toLowerCase()) {
-      case 'training completed':
+      case 'completed':
         return 'completed';
-      case 'training missing':
+      case 'missing':
         return 'missing';
-      case 'training optional':
+      case 'optional':
         return 'optional';
-      case 'place holder':
-        return 'placeholder';
+      case 'if performing':
+        return 'if-performing';
       default:
         return '';
     }
