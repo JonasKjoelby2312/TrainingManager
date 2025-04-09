@@ -10,7 +10,7 @@ namespace TrainingManager.DataAccess.DAOs;
 
 public class ProcedureDAO : BaseDAO, IProcedureDAO
 {
-    private readonly string GET_ALL_PROCEDURES_WITH_REVISIONS = "SELECT tp.procedure_name AS ProcedureName, r.revision AS RevisionNumber, r.revision_is_active AS IsActive, r.revision_history_text AS HistoryText FROM treat_procedures tp JOIN revisions r ON tp.fk_revision_id = r.revision_id WHERE r.revision_is_active = 1 ORDER BY tp.procedure_name;";
+    private readonly string GET_ALL_PROCEDURES_WITH_REVISIONS = "SELECT tp.procedure_name AS ProcedureName, r.revision AS RevisionNumber, r.revision_is_active AS IsActive, r.revision_history_text AS HistoryText FROM treat_procedures tp JOIN revisions r ON r.fk_treat_procedure_id = tp.procedure_id WHERE r.revision_is_active = 1 ORDER BY tp.procedure_name;";
 
     public ProcedureDAO(string connectionString) : base(connectionString)
     {
