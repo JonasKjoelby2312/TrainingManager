@@ -33,7 +33,7 @@ public class Program
 
         builder.Services.AddSingleton<IEmployeeDAO>((_) => (IEmployeeDAO)new EmployeeDAO(connectionString));
         builder.Services.AddSingleton<IProcedureDAO>(_ => new ProcedureDAO(connectionString));
-
+        builder.Services.AddSingleton<IEmployeeComplianceDAO>(_ => new EmployeeComplianceDAO(connectionString));
 
 
         var app = builder.Build();

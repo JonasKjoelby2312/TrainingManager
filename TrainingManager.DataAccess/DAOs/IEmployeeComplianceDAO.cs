@@ -9,5 +9,5 @@ namespace TrainingManager.DataAccess.DAOs;
 
 public interface IEmployeeComplianceDAO
 {
-    Task<EmployeeComplianceDAO> GetEmployeeCompliance(string inits);
+    Task<EmployeeCompliance> GetEmployeeComplianceAsync(string inits);
 }
