@@ -20,4 +20,14 @@ export class ProcedureService {
   getProcedureRevisions(): Observable<ProcedureWithRevision[]> {
     return this.http.get<ProcedureWithRevision[]>(this.apiUrl);
   }
+
+  //getAllRevisionsForProcedure(procedureName: string): Observable<any[]> {
+  //  return this.http.get<any[]>(`${this.apiUrl}/revisions/${procedureName}`);
+  //}
+
+  getAllRevisionsForProcedure(procedureName: string): Observable<ProcedureWithRevision[]> {
+    return this.http.get<ProcedureWithRevision[]>(`${this.apiUrl}/revisions/${procedureName}`
+    );
+  }
+
 }

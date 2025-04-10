@@ -1,7 +1,6 @@
 
 
-
-<table>
+<table class="procedure-table">
   <thead>
     <tr>
       <th>Procedure</th>
@@ -9,10 +8,37 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of procedures">
+    <tr *ngFor="let item of procedures" (click)="openRevisionHistory(item)">
       <td>{{ item.procedureName }}</td>
       <td>{{ item.revisionNumber }}</td>
     </tr>
   </tbody>
 </table>
 <p *ngIf="procedures.length === 0">No procedures found.</p>
+
+<div *ngIf="showModal" class="modal">
+  <div class="modal-content">
+    <h3>Revision History for "{{ selectedProcedure?.procedureName }}"</h3>
+
+    <table *ngIf="revisionHistory.length > 0" class="revision-table">
+      <thead>
+        <tr>
+          <th>Revision</th>
+          <th>History Text</th>
+          <th>Active</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rev of revisionHistory">
+          <td>{{ rev.revisionNumber }}</td>
+          <td>{{ rev.historyText }}</td>
+          <td>{{ rev.isActive ? '✅' : '❌' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p *ngIf="revisionHistory.length === 0">No revisions found for this procedure.</p>
+
+    <button class="close-btn" (click)="closeModal()">Close</button>
+  </div>
+</div>
