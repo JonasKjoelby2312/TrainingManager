@@ -19,8 +19,15 @@ public class ProcedureOverviewController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Procedure>>> GetAllPorceduresWithRevisionsAsync()
     {
-        var procedures = await _procedureDAO.GetAllPorceduresWithRevisionsAsync();
+        var procedures = await _procedureDAO.GetAllProceduresWithRevisionsAsync();
         return Ok(procedures);
+    }
+
+    [HttpGet("revisions/{ProcedureName}")]
+    public async Task<IActionResult> GetRevisionsForProcedureAsync(string procedureName)
+    {
+        var revisions = await _procedureDAO.GetRevisionsForProcedureAsync(procedureName);
+        return Ok(revisions);
     }
 
     // GET api/<ProcedureOverviewController>/5
