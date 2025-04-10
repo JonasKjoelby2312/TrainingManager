@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <tr>
+      <th>Document</th>
+      <th>Req. Rev.</th>
+      <th>Status</th>
+      <th>Compl. Rev.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of tableRows.rows">
+      <td>{{ row[0] }}</td>
+      <td>{{ row[1] }}</td>
+      <td>{{ row[2] }}</td>
+      <td>{{ row[3] }}</td>
+    </tr>
+  </tbody>
+</table>
