@@ -31,10 +31,10 @@ public class EmployeeComplianceDAO : BaseDAO, IEmployeeComplianceDAO
                 string[] rowData = new string[4];
                 rowData[0] = item.procedure_name;
                 var reqRev = item.required_revision;
-                rowData[1] = reqRev != null ? reqRev.ToString() : "0";
+                rowData[1] = reqRev != null ? reqRev.ToString() : "N/A";
                 rowData[2] = item.TrainingStatus;
                 var comRev = item.completed_revision;
-                rowData[3] = comRev != null ? comRev.ToString() : "0";
+                rowData[3] = comRev != null ? comRev.ToString() : "N/A";
 
                 res.Rows.Add(rowData);
             }
