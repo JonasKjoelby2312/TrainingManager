@@ -12,13 +12,15 @@ interface EmployeeCompliance {
   styleUrl: './admin-employee-compliance.component.css'
 })
 export class AdminEmployeeComplianceComponent {
-  tableRows: any;
+  tableRows: any[] = [];
 
   constructor(private http: HttpClient) { }
 
-  ngOnInit() {
-    this.http.get<EmployeeCompliance>('https://localhost:7227/api/EmployeeCompliance/lw').subscribe(data => {
-      this.tableRows = data;
+  searchForCompliance() {
+    const searchInput = <HTMLInputElement>document.getElementById("searchInput");
+    let apiConnectionString = 'https://localhost:7227/api/EmployeeCompliance/' + searchInput.value.toString();
+    this.http.get<EmployeeCompliance>(apiConnectionString).subscribe(data => {
+      this.tableRows = data.rows;
     });
   }
 }

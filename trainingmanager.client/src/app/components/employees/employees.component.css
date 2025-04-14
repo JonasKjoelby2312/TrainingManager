@@ -1,7 +1,6 @@
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 2rem 0;
   font-family: 'Arial', sans-serif;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   overflow: hidden;
