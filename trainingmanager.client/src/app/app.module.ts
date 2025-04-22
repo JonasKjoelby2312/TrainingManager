@@ -8,6 +8,7 @@ import { AdminComplianceComponent } from './components/admin-compliance/admin-co
 import { EmployeesComponent } from './components/employees/employees.component';
 import { ProcedureComponent } from './components/procedure/procedure.component';
 import { AdminEmployeeComplianceComponent } from './components/admin-employee-compliance/admin-employee-compliance.component';
+import { RolesRequiredTrainingComponent } from './components/roles-required-training/roles-required-training.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { AdminEmployeeComplianceComponent } from './components/admin-employee-co
     AdminComplianceComponent,
     EmployeesComponent,
     ProcedureComponent,
-    AdminEmployeeComplianceComponent
+    AdminEmployeeComplianceComponent,
+    RolesRequiredTrainingComponent
   ],
   imports: [
     BrowserModule, HttpClientModule,

@@ -1,0 +1,18 @@
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Procedure Name</th>
+        <th *ngFor="let role of rolesRequiredTraining">{{ role.roleName }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let procedureName of procedures">
+        <td>{{ procedureName }}</td>
+        <td *ngFor="let role of rolesRequiredTraining">
+          {{ role.trainingRequiredTypes[procedureName] }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
