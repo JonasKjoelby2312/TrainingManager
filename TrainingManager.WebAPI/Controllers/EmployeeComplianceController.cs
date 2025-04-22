@@ -10,11 +10,11 @@ namespace TrainingManager.WebAPI.Controllers
     [ApiController]
     public class EmployeeComplianceController : ControllerBase
     {
-        private IEmployeeComplianceDAO _employeeComplianceDAO;
+        private IEmployeeDAO _employeeDAO;
 
-        public EmployeeComplianceController(IEmployeeComplianceDAO employeeComplianceDAO)
+        public EmployeeComplianceController(IEmployeeDAO employeeDAO)
         {
-            _employeeComplianceDAO = employeeComplianceDAO;
+            _employeeDAO = employeeDAO;
         }
 
         // GET: api/<EmployeeComplianceController>
@@ -26,9 +26,9 @@ namespace TrainingManager.WebAPI.Controllers
 
         // GET api/<EmployeeComplianceController>/5
         [HttpGet("{initials}")]
-        public async Task<ActionResult<EmployeeCompliance>> Get(string initials)
+        public async Task<ActionResult<MatrixParent>> Get(string initials)
         {
-            EmployeeCompliance res = await _employeeComplianceDAO.GetEmployeeComplianceAsync(initials);
+            MatrixParent res = await _employeeDAO.GetEmployeeComplianceByInitialsAsync(initials);
             return Ok(res);
         }
 

@@ -1,5 +1,5 @@
-<input id="searchInput"/>
-<input type="button" value="Search" id="searchButton" (click)="searchForCompliance()"/>
+<input id="searchInput" type="text" #searchInput/>
+<input type="button" value="Search" id="searchButton" (click)="searchForCompliance(searchInput.value)"/>
 
 <table>
   <thead>

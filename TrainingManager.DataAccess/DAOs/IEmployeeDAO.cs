@@ -14,4 +14,6 @@ public interface IEmployeeDAO
     Task<IEnumerable<Employee>> GetAllEmployeesAsync();
     Task<Employee> GetByIdAsync(int id);
     Task<int> UpdateAsync(Employee entity);
+
+    Task<MatrixParent> GetEmployeeComplianceByInitialsAsync(string inits);
 }

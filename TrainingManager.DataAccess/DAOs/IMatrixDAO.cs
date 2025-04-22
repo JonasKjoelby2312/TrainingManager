@@ -7,7 +7,7 @@ using TrainingManager.DataAccess.Models;
 
 namespace TrainingManager.DataAccess.DAOs;
 
-public interface IEmployeeComplianceDAO
+public interface IMatrixDAO
 {
-    Task<EmployeeCompliance> GetEmployeeComplianceAsync(string inits);
+    Task<MatrixParent> GetAdminComplienceMatrixAsync();
 }

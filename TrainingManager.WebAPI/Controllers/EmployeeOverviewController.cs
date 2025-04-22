@@ -21,7 +21,7 @@ namespace TrainingManager.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetAsync()
         {
-            IEnumerable<Employee> employees = await _employeeDAO.GetAllEmployeesAsync();
+            IEnumerable<Employee> employees = await _employeeDAO.GetAllEmployeesAndStatusesAsync();
             return Ok(employees);
         }
 
