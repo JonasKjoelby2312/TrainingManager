@@ -3,18 +3,76 @@
     <tr>
       <th>Initials</th>
       <th>Email</th>
-      <th>Roles</th>
+      <th>
+        <div class="roles-th-container">
+          <div>Roles</div>
+          <div (click)="openCreateModal()" class="create-new-plus">+</div>
+        </div>
+      </th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let employee of tableRows">
+    <tr *ngFor="let employee of tableRows" (click)="openEditModal(employee)" class="clickable-row">
       <td>{{ employee.initials }}</td>
       <td>{{ employee.email }}</td>
       <td>
         <div class="roles-container">
-          <span *ngFor ="let role of employee.roles" class="role-badge">{{ role }}</span>
+          <span *ngFor="let role of employee.roles" class="role-badge">{{ role }}</span>
         </div>
       </td>
     </tr>
   </tbody>
 </table>
+
+
+<div *ngIf="isCreateModalActive" class="create-modal" (click)="closeCreateModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>Create new Employee</h3>
+
+    <input type="text" #initialsInput placeholder="Initials" />
+    <input type="text" #emailInput placeholder="Email" />
+
+    <div *ngFor="let role of rolesList">
+      <label>
+        <input type="checkbox"
+               [value]="role"
+               (change)="onRoleChange($event)"
+               [checked]="selectedRoles.includes(role)" />
+        {{ role }}
+      </label>
+    </div>
+
+    <div class="modal-actions">
+      <button class="button close-btn" (click)="closeCreateModal()">Close</button>
+      <button class="button create-btn" (click)="createNewEmployee()">Create</button>
+    </div>
+  </div>
+</div>
+
+
+
+<div *ngIf="isEditModalActive" class="create-modal" (click)="closeEditModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>Edit Employee</h3>
+
+    <input type="text" #editInitialsInput [value]="selectedEmployee.initials" placeholder="Initials" />
+    <input type="text" #editEmailInput [value]="selectedEmployee.email" placeholder="Email" />
+
+    <div *ngFor="let role of rolesList">
+      <label>
+        <input type="checkbox"
+               [value]="role"
+               [checked]="tempEditRoles.includes(role)"
+               (change)="onTempEditRoleChange($event)" />
+        {{ role }}
+      </label>
+    </div>
+
+    <div class="modal-actions">
+      <button class="button close-btn" (click)="closeEditModal()">Close</button>
+      <button class="button create-btn" (click)="saveEditChanges(editInitialsInput.value, editEmailInput.value)">Save</button>
+    </div>
+  </div>
+</div>
+
+

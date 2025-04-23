@@ -34,8 +34,17 @@ namespace TrainingManager.Server.Controllers
 
         // POST api/<EmployeeOverviewController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<int>> Post([FromBody] Employee entity)
         {
+            if (entity.Initials != null && entity.Email != null)
+            {
+                int employeeId = await _employeeDAO.CreateAsync(entity);
+                return Ok(employeeId);
+            } else
+            {
+                return NotFound();
+            }
+            
         }
 
         // PUT api/<EmployeeOverviewController>/5
