@@ -30,13 +30,13 @@ public class EmployeeDAO : BaseDAO, IEmployeeDAO
         IDbTransaction transaction = connection.BeginTransaction();
         try
         {
-            int IdFromDB = await connection.ExecuteScalarAsync<int>(INSERT_EMPLOYEE, new { Email = entity.Email, Initials = entity.Initials, IsActive = entity.IsActive });
+            int IdFromDB = await connection.ExecuteScalarAsync<int>(INSERT_EMPLOYEE, new { Email = entity.Email, Initials = entity.Initials, IsActive = entity.IsActive }, transaction);
 
-            IEnumerable<int> rolesIds = await connection.QueryAsync<int>(GET_ROLES_IDS_BY_ROLE_NAMES, new { Roles = entity.Roles });
+            IEnumerable<int> rolesIds = await connection.QueryAsync<int>(GET_ROLES_IDS_BY_ROLE_NAMES, new { Roles = entity.Roles }, transaction);
 
             foreach (int roleId in rolesIds)
             {
-                await connection.QueryAsync(INSERT_EMPLOYEE_ROLES, new { EmployeeId = IdFromDB, RoleId = roleId });
+                await connection.QueryAsync(INSERT_EMPLOYEE_ROLES, new { EmployeeId = IdFromDB, RoleId = roleId }, transaction);
             }
 
             transaction.Commit();
