@@ -49,8 +49,9 @@ namespace TrainingManager.Server.Controllers
 
         // PUT api/<EmployeeOverviewController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] Employee entity)
         {
+            _employeeDAO.UpdateAsync(entity);
         }
 
         // DELETE api/<EmployeeOverviewController>/5
