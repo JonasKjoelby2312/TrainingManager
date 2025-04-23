@@ -14,6 +14,7 @@ public class Procedure
     public bool IsActive { get; set; }
     public string HistoryText { get; set; }
 
+    public List<RolesRequiredTraining> RolesRequiredTrainingList { get; set; } = new List<RolesRequiredTraining>();
     public Procedure()
     {
         

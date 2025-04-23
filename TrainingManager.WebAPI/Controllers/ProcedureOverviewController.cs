@@ -39,8 +39,9 @@ public class ProcedureOverviewController : ControllerBase
 
     // POST api/<ProcedureOverviewController>
     [HttpPost]
-    public void Post([FromBody] string value)
+    public async Task<ActionResult<int>> Post([FromBody] Procedure procedure)
     {
+        return Ok( await _procedureDAO.CreateAsync(procedure));
     }
 
     // PUT api/<ProcedureOverviewController>/5

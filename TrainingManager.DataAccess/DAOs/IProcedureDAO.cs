@@ -14,4 +14,5 @@ public interface IProcedureDAO
     Task<IEnumerable<Procedure>> GetRevisionsForProcedureAsync(string procedureName);
     Task<Procedure> GetByIdAsync(int id);
     Task<int> UpdateAsync(Procedure entity);
+
 }

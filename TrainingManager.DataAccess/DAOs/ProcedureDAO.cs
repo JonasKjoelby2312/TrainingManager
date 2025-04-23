@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,13 +14,51 @@ public class ProcedureDAO : BaseDAO, IProcedureDAO
 {
     private readonly string GET_ALL_PROCEDURE_WITH_ACTIVE_REVISION = "SELECT tp.procedure_name AS ProcedureName, r.revision AS RevisionNumber, r.revision_is_active AS IsActive, r.revision_history_text AS HistoryText FROM treat_procedures tp JOIN revisions r ON r.fk_treat_procedure_id = tp.procedure_id WHERE r.revision_is_active = 1 ORDER BY tp.procedure_name;";
     private readonly string GET_ALL_REVISIONS_FOR_PROCEDURE = "SELECT\r\n  tp.procedure_name AS ProcedureName,\r\n  r.revision AS RevisionNumber,\r\n  r.revision_is_active AS IsActive,\r\n  r.revision_history_text AS HistoryText\r\nFROM revisions r\r\nJOIN treat_procedures tp ON tp.procedure_id = r.fk_treat_procedure_id\r\nWHERE tp.procedure_name = @ProcedureName\r\nORDER BY r.revision DESC;";
+    private readonly string INSERT_INTO_PROCEDURES = "INSERT treat_procedures (procedure_name) VALUES (@ProcedureName); SELECT CAST(SCOPE_IDENTITY() AS INT)";
+    private readonly string INSERT_INTO_REVISIONS = "INSERT INTO revisions (revision, revision_is_active, revision_history_text, fk_treat_procedure_id) VALUES (@RevisionNumber, @IsActive, @HistoryText, @FKTreatProcedureId)";
+    private readonly string INSERT_INTO_REQUIRED_TRAINING_TYPES = " INSERT INTO required_training_types (required_type, fk_role_id, fk_treat_procedure_id) VALUES (@RequiredType, @RoleId, @FKTreatProcedureId)";
     public ProcedureDAO(string connectionString) : base(connectionString)
     {
     }
 
-    public Task<int> CreateAsync(Procedure entity)
+    public async Task<int> CreateAsync(Procedure entity)
     {
-        throw new NotImplementedException();
+        using var connection = CreateConnection();
+        connection.Open();
+        IDbTransaction dbTransaction = connection.BeginTransaction();
+        try
+        {
+            //Add new procedure ID for revision and required type to hold
+            var newProcedure = await connection.ExecuteScalarAsync<int>(INSERT_INTO_PROCEDURES, new { ProcedureName = entity.ProcedureName }, dbTransaction);
+            var newRevision = await connection.ExecuteAsync(INSERT_INTO_REVISIONS, new {FKTreatProcedureID = newProcedure,
+                RevisionNumber = entity.RevisionNumber, IsActive = entity.IsActive, Historytext =  entity.HistoryText}, dbTransaction);
+
+           if(entity.RolesRequiredTrainingList != null)
+           {
+                foreach (var role in entity.RolesRequiredTrainingList)
+                {
+                    foreach (var kvp in role.TrainingRequiredTypes)
+                    {
+
+                            await connection.ExecuteAsync(INSERT_INTO_REQUIRED_TRAINING_TYPES, new
+                            {
+                                RoleId = role.RoleId,
+                                requiredType = kvp.Value,
+                                FKTreatProcedureId = newProcedure
+                            }, dbTransaction);
+                        }
+                    }
+                }
+
+            
+            dbTransaction.Commit();
+            return newProcedure;
+        }
+        catch (Exception ex)
+        {
+            dbTransaction.Rollback();
+            throw ex;
+        }
     }
 
     public async Task<IEnumerable<Procedure>> GetAllProceduresWithRevisionsAsync()

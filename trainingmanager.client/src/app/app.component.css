@@ -1,4 +1,4 @@
-/* Reset default margin and padding */
+
 {
   box-sizing: border-box;
   margin: 0;
@@ -15,12 +15,11 @@ body {
 .navbar {
   display: flex;
   flex-direction: row;
-  background-color: #1E90FF; / Match the background color of non-selected items /
-  padding: 10px;
+  background-color: #1E90FF; 
   align-items: center;
   width: 100%;
   justify-content: space-between;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); / Optional: Add a shadow for better separation /
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
 }
 
 .nav-item {
@@ -35,7 +34,7 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  text-decoration: none; / Remove underline from links /
+  text-decoration: none; 
 }
 
 .nav-item:hover {
@@ -44,7 +43,7 @@ body {
 
   .nav-item.active {
     background-color: #3547b8;
-    / Dark blue color for active item / color: #00BFFF;
+    
   }
 
 .icon {
@@ -57,15 +56,15 @@ body {
   height: 40px;
   background-color: white;
   border-radius: 50%;
-  display: flex; / Use flex to center the icon /
-  align-items: center; / Center vertically /
-  justify-content: center; / Center horizontally /
-  margin-left: auto; / Pushes the profile icon to the right /
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  margin-left: auto; 
 }
 
-/ Additional styles to ensure content does not overflow /
+
 .container {
-  max-width: 1200px; / Optional: Set a max width for the main content /
-  margin: 0 auto; / Center the content /
-  padding: 20px; / Optional: Add some padding */
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding: 20px; 
 }
