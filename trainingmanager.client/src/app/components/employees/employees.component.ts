@@ -6,7 +6,7 @@ interface Employee {
   email: string;
   isActive: boolean;
   roles: string[];
-  employeeTrainingStatuses: null;
+  employeeTrainingStatuses: {[procedureName:string]: string};
 }
 
 @Component({
@@ -20,7 +20,7 @@ export class EmployeesComponent {
   tableRows: any[] = [];
   isCreateModalActive: boolean = false;
   newEmployee: Employee = {
-    initials: "", email: "", isActive: true, roles: [], employeeTrainingStatuses: {}
+    initials: "", email: "", isActive: true, roles: [], employeeTrainingStatuses: {},
   };
   rolesList: string[] = ["Tester", "Application/Data Architect", "Bookkeeper", "Chief Executive Officer", "Chief Operation Officer", "Developer", "Human Resources", "Internal IT Support", "Lead Developer", "Project Manager", "PRRC", "QARA Associate", "QARA Manager", "R&D Manager", "Research Associate", "Sales/Key Account Manager", "Software Team Manager", "Specification Engineer", "Specification Team Manager", "Support Manager", "Supporter", "System Architect", "Test Manager", "Transfer/ Delivery Manager"];
   selectedRoles: string[] = [];
@@ -55,9 +55,25 @@ export class EmployeesComponent {
     this.selectedEmployee = null;
   }
 
-  createNewEmployee() {
-    this.openCreateModal();
-    
+  loadAllCustomers() {
+    this.http.get<Employee[]>('https://localhost:7227/api/EmployeeOverview').subscribe(data => {
+      this.tableRows = data; console.log(data)
+    }, error => console.log(error));
+  }
+
+  createNewEmployee(initialsInput: HTMLInputElement, emailInput: HTMLInputElement) {
+    this.newEmployee = {
+      initials: initialsInput.value,
+      email: emailInput.value,
+      isActive: true,
+      roles: [...this.selectedRoles],
+      employeeTrainingStatuses: {}
+    };
+    this.http.post<number>('https://localhost:7227/api/EmployeeOverview', this.newEmployee)
+      .subscribe(() => {
+        this.closeCreateModal();
+        this.loadAllCustomers();
+      }); 
   }
 
   onRoleChange(event: any) {
