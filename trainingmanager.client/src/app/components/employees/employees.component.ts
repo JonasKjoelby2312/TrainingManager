@@ -6,9 +6,7 @@ interface Employee {
   email: string;
   isActive: boolean;
   roles: string[];
-  employeeTrainingStatuses: {
-    [procedureName: string]: string;
-  };
+  employeeTrainingStatuses: null;
 }
 
 @Component({
