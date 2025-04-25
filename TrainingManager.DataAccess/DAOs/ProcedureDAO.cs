@@ -3,9 +3,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using TrainingManager.DataAccess.Models;
 
 namespace TrainingManager.DataAccess.DAOs;
@@ -13,10 +15,10 @@ namespace TrainingManager.DataAccess.DAOs;
 public class ProcedureDAO : BaseDAO, IProcedureDAO
 {
     private readonly string GET_ALL_PROCEDURE_WITH_ACTIVE_REVISION = "SELECT tp.procedure_name AS ProcedureName, r.revision AS RevisionNumber, r.revision_is_active AS IsActive, r.revision_history_text AS HistoryText FROM treat_procedures tp JOIN revisions r ON r.fk_treat_procedure_id = tp.procedure_id WHERE r.revision_is_active = 1 ORDER BY tp.procedure_name;";
-    private readonly string GET_ALL_REVISIONS_FOR_PROCEDURE = "SELECT\r\n  tp.procedure_name AS ProcedureName,\r\n  r.revision AS RevisionNumber,\r\n  r.revision_is_active AS IsActive,\r\n  r.revision_history_text AS HistoryText\r\nFROM revisions r\r\nJOIN treat_procedures tp ON tp.procedure_id = r.fk_treat_procedure_id\r\nWHERE tp.procedure_name = @ProcedureName\r\nORDER BY r.revision DESC;";
-    private readonly string INSERT_INTO_PROCEDURES = "INSERT treat_procedures (procedure_name) VALUES (@ProcedureName); SELECT CAST(SCOPE_IDENTITY() AS INT)";
-    private readonly string INSERT_INTO_REVISIONS = "INSERT INTO revisions (revision, revision_is_active, revision_history_text, fk_treat_procedure_id) VALUES (@RevisionNumber, @IsActive, @HistoryText, @FKTreatProcedureId)";
-    private readonly string INSERT_INTO_REQUIRED_TRAINING_TYPES = " INSERT INTO required_training_types (required_type, fk_role_id, fk_treat_procedure_id) VALUES (@RequiredType, @RoleId, @FKTreatProcedureId)";
+    private readonly string GET_ALL_REVISIONS_FOR_PROCEDURE = "SELECT tp.procedure_name AS ProcedureName, r.revision AS RevisionNumber, r.revision_is_active AS IsActive, r.revision_history_text AS HistoryText FROM revisions r JOIN treat_procedures tp ON tp.procedure_id = r.fk_treat_procedure_id WHERE tp.procedure_name = @ProcedureName ORDER BY r.revision DESC;";
+    private readonly string INSERT_INTO_PROCEDURES = "INSERT INTO treat_procedures (procedure_name) OUTPUT INSERTED.procedure_id VALUES (@ProcedureName)";
+    private readonly string INSERT_INTO_REVISIONS = "INSERT INTO revisions (revision, revision_is_active, revision_history_text, fk_treat_procedure_id) VALUES(@RevisionNumber, @IsActive, @HistoryText, @ProcedureId)";
+    private readonly string INSERT_INTO_REQUIRED_TRAINING_TYPES = "INSERT INTO required_training_types (required_type, fk_role_id, fk_treat_procedure_id) VALUES (@RequiredType, @RoleId, @ProcedureId)";
 
     public ProcedureDAO(string connectionString) : base(connectionString)
     {
@@ -31,9 +33,9 @@ public class ProcedureDAO : BaseDAO, IProcedureDAO
         try
         {
             
-            var newProcedure = await connection.ExecuteScalarAsync<int>(
+            var procedureId = await connection.ExecuteScalarAsync<int>(
                 INSERT_INTO_PROCEDURES,
-                new { ProcedureName = entity.ProcedureName },
+                new { entity.ProcedureName},
                 dbTransaction
             );
 
@@ -42,42 +44,39 @@ public class ProcedureDAO : BaseDAO, IProcedureDAO
                 INSERT_INTO_REVISIONS,
                 new
                 {
-                    FKTreatProcedureId = newProcedure,
                     RevisionNumber = entity.RevisionNumber,
                     IsActive = entity.IsActive,
-                    HistoryText = entity.HistoryText
+                    HistoryText = entity.HistoryText,
+                    ProcedureId = procedureId
+
                 },
                 dbTransaction
             );
 
-            
+
             if (entity.RolesRequiredTrainingList != null && entity.RolesRequiredTrainingList.Any())
             {
                 foreach (var role in entity.RolesRequiredTrainingList)
                 {
-                    foreach (var kvp in role.TrainingRequiredTypes)
-                    {
-                        await connection.ExecuteAsync(
-                            INSERT_INTO_REQUIRED_TRAINING_TYPES,
-                            new
-                            {
-                                RequiredType = kvp.Value, 
-                                RoleId = role.RoleId,
-                                FKTreatProcedureId = newProcedure
-                            },
-                            dbTransaction
-                        );
-                    }
+                    await connection.ExecuteAsync(INSERT_INTO_REQUIRED_TRAINING_TYPES,
+                        new
+                        {
+                            RequiredType = role.TrainingRequiredTypes["default"],
+                            RoleId = role.RoleId,
+                            ProcedureId = procedureId
+                        }, dbTransaction);
                 }
+
             }
 
+
             dbTransaction.Commit();
-            return newProcedure;
+            return procedureId;
         }
         catch (Exception ex)
         {
             dbTransaction.Rollback();
-            throw new Exception("Failed to insert procedure and related data.", ex);
+            throw new Exception("Failed to insert procedure and related data: {ex.Message}", ex);
         }
     }
 

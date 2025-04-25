@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using TrainingManager.DataAccess.DAOs;
 using TrainingManager.DataAccess.Models;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -39,10 +40,36 @@ public class ProcedureOverviewController : ControllerBase
 
     // POST api/<ProcedureOverviewController>
     [HttpPost]
-    public async Task<ActionResult<int>> Post([FromBody] Procedure procedure)
+    public async Task<ActionResult<int>> Post([FromBody] CreateProcedureDto dto)
     {
-        return Ok( await _procedureDAO.CreateAsync(procedure));
+        try
+        {
+            var procedure = new Procedure
+            {
+                ProcedureName = dto.ProcedureName,
+                RevisionNumber = dto.RevisionNumber,
+                IsActive = dto.IsActive,
+                HistoryText = dto.HistoryText,
+
+                RolesRequiredTrainingList = dto.RolesRequiredTrainingList
+                    .Select(r =>
+                    {
+                        var model = new RolesRequiredTraining(r.RoleId, null);
+                        model.TrainingRequiredTypes.Add("default", r.RequiredType);
+                        return model;
+                    })
+                    .ToList()   
+            };
+
+            return Ok(await _procedureDAO.CreateAsync(procedure));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($"Error creating procedure: {ex.Message}");
+        }
     }
+
+
 
     // PUT api/<ProcedureOverviewController>/5
     [HttpPut("{id}")]

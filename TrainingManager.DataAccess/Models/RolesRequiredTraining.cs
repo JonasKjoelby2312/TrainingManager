@@ -18,4 +18,6 @@ public class RolesRequiredTraining
         RoleName = roleName;
         TrainingRequiredTypes = new Dictionary<string, int>();
     }
+
+  
 }
