@@ -171,3 +171,13 @@ td:nth-child(3) span {
   .clickable-row:hover {
     background-color: #f9f9f9;
   }
+
+th {
+  vertical-align: middle; /* Ensures all th cells align content vertically */
+}
+
+.roles-th-container {
+  display: flex;
+  align-items: center; /* Aligns the "Roles" text and "+" vertically */
+  justify-content: space-between; /* Optional: puts space between text and "+" */
+}
