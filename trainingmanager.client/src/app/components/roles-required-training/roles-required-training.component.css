@@ -71,12 +71,12 @@ tbody tr:hover {
 
 th:not(:first-child) {
   writing-mode: vertical-rl;
-  transform: rotate(180deg);
+  transform: none;
   white-space: nowrap;
   vertical-align: bottom;
   padding: 6px;
-  height: 230px; /* Increase height as needed */
-  min-width: 50px; /* Ensures columns aren't too narrow */
+  height: 230px;
+  min-width: 50px;
   overflow: hidden;
   text-overflow: ellipsis;
   background-color: #4a4e69;
