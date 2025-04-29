@@ -45,6 +45,9 @@ export class ProcedureComponent implements OnInit {
     this.revisionHistory = [];
     this.selectedProcedure = null;
   }
+
+
+
 }
 
 

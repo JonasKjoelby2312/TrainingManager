@@ -1,20 +1,23 @@
-
-
 <table class="procedure-table">
   <thead>
     <tr>
       <th>Procedure</th>
       <th>Revision</th>
+      <th>History</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let item of procedures" (click)="openRevisionHistory(item)">
       <td>{{ item.procedureName }}</td>
       <td>{{ item.revisionNumber }}</td>
+      <td>
+        <button class="history-btn" (click)="openRevisionHistory(item)">History</button>
+      </td>
     </tr>
   </tbody>
 </table>
 <p *ngIf="procedures.length === 0">No procedures found.</p>
+
 
 <div *ngIf="showModal" class="modal">
   <div class="modal-content">

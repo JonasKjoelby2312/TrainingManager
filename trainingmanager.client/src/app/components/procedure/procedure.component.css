@@ -91,3 +91,25 @@ tr:hover {
       max-width: 350px;
       word-wrap: break-word;
     }
+
+.history-btn {
+  padding: 6px 10px;
+  font-size: 13px;
+  background-color: #6c63ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+  .history-btn:hover {
+    background-color: #574fd6;
+  }
+
+.procedure-table td:last-child,
+.procedure-table th:last-child {
+  width: 1%; /* Shrinks to fit content */
+  white-space: nowrap; /* Prevents line breaks */
+  text-align: center;
+}
+
