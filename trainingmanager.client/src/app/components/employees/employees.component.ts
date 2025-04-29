@@ -73,6 +73,7 @@ export class EmployeesComponent {
       .subscribe(() => {
         this.closeCreateModal();
         this.loadAllCustomers();
+        this.selectedRoles = [];
       }); 
   }
 

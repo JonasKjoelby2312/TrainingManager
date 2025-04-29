@@ -1,17 +1,38 @@
-
-
+/* Base table style */
 .training-table {
   border-collapse: collapse;
   width: 100%;
+  table-layout: fixed; /* Ensures width constraints are respected */
+  font-size: 10px;
 }
 
-  .training-table th,
+  /* All cells */
   .training-table td {
-    padding: 8px;
-    text-align: center;
     border: 1px solid #ccc;
+    text-align: center;
+    padding: 1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
+  /* First row (header-like) */
+  .training-table tr:first-child td {
+    background-color: #4a4e69; /* Dark gray-blue */
+    color: white;
+    font-weight: bold;
+  }
+
+  /* First column */
+  .training-table td:first-child {
+    background-color: #4a4e69; /* Same as first row */
+    color: white;
+    font-weight: bold;
+    width: 80px; /* Change this to whatever width you want */
+    max-width: 150px;
+  }
+
+/* Status colors */
 .completed {
   background-color: #c8e6c9;
 }
