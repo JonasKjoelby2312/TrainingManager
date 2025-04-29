@@ -16,13 +16,16 @@
   </tbody>
 </table>-->
 
-<table class="training-table">
-  <tr *ngFor="let row of getTransposedMatrix()">
-    <td *ngFor="let cell of row" [ngClass]="getCssClass(cell)">
-      {{ cell }}
-    </td>
-  </tr>
-</table>
+<div class="training-table-wrapper">
+  <table class="training-table">
+    <tr *ngFor="let row of getTransposedMatrix()">
+      <td *ngFor="let cell of row" [ngClass]="getCssClass(cell)">
+        {{ cell }}
+      </td>
+    </tr>
+  </table>
+</div>
+
 
 
 

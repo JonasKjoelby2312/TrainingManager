@@ -1,36 +1,57 @@
-/* Base table style */
+/* Wrapper: scrollable, centered table, no bottom space */
+.training-table-wrapper {
+  overflow: auto;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  height: fit-content;
+  box-sizing: border-box;
+  text-align: center; /* Center contents horizontally */
+}
+
+/* Table styling */
 .training-table {
+  display: inline-block; /* Important: inline-block to allow centering */
   border-collapse: collapse;
-  width: 100%;
-  table-layout: fixed; /* Ensures width constraints are respected */
+  table-layout: fixed;
   font-size: 10px;
+  min-width: max-content; /* Prevents it from shrinking too small */
 }
 
   /* All cells */
   .training-table td {
     border: 1px solid #ccc;
     text-align: center;
-    padding: 1px;
+    padding: 2px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    padding: 2px 20px; /*Change the last PX, for less/more white space*/
   }
 
   /* First row (header-like) */
   .training-table tr:first-child td {
-    background-color: #4a4e69; /* Dark gray-blue */
+    background-color: #4a4e69;
     color: white;
     font-weight: bold;
   }
 
   /* First column */
   .training-table td:first-child {
-    background-color: #4a4e69; /* Same as first row */
+    background-color: #4a4e69;
     color: white;
     font-weight: bold;
-    width: 80px; /* Change this to whatever width you want */
+    width: 60px;
     max-width: 150px;
+    padding: 1px 4px;
   }
+
+/* Optional: reset body margins if needed */
+body {
+  margin: 0;
+  padding: 0;
+}
 
 /* Status colors */
 .completed {
