@@ -1,25 +1,27 @@
 <div class="drop-down">
-  <input class="search-input-drop-down" type="text" (input)="onInputChange(dropDownSearch.value)" (focus)="toggleDropDown(); onInputChange('')" (blur)="toggleDropDown()" placeholder="Search Initials" #dropDownSearch/>
+  <input class="search-input-drop-down" type="text" (input)="onInputChange(dropDownSearch.value)" (keydown.enter)="searchForCompliance(dropDownSearch.value)" (focus)="toggleDropDown(); onInputChange('')" (blur)="toggleDropDown()" placeholder="Search Initials" #dropDownSearch/>
   <div id="drop-down-content" class="drop-down-content" *ngIf="filteredInitials.length > 0 && showDropDown">
     <p class="drop-down-option" *ngFor="let initials of filteredInitials" (mousedown)="dropDownSearch.value = initials; searchForCompliance(initials)">{{ initials }}</p>
   </div>
 </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Document</th>
-      <th>Req. Rev.</th>
-      <th>Status</th>
-      <th>Compl. Rev.</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let row of tableRows">
-      <td>{{ row[0] }}</td>
-      <td>{{ row[1] }}</td>
-      <td>{{ row[2] }}</td>
-      <td>{{ row[3] }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Document</th>
+        <th>Required Revision</th>
+        <th>Status</th>
+        <th>Completed Revision</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of tableRows">
+        <td>{{ row[0] }}</td>
+        <td>{{ row[1] }}</td>
+        <td [ngClass]="getCssClass(row[2])">{{ row[2] }}</td>
+        <td>{{ row[3] }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

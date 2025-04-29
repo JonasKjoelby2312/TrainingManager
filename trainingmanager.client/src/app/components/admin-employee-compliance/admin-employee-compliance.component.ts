@@ -52,8 +52,24 @@ export class AdminEmployeeComplianceComponent {
     //const searchInput = <HTMLInputElement>document.getElementById("searchInput");
     let apiConnectionString = 'https://localhost:7227/api/EmployeeCompliance/' + searchString; //searchInput.value.toString();
     this.http.get<MatrixParent>(apiConnectionString).subscribe(data => {
-      console.log('EmployeeCompliance', data)
       this.tableRows = data.matrix;
     });
+  }
+
+  getCssClass(status: string | undefined): string {
+    console.log('getcss running');
+    if (!status) return '';
+    switch (status.toLowerCase()) {
+      case 'completed':
+        return 'completed';
+      case 'missing':
+        return 'missing';
+      case 'optional':
+        return 'optional';
+      case 'if performing':
+        return 'if-performing';
+      default:
+        return '';
+    }
   }
 }

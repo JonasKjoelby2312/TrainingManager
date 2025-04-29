@@ -1,27 +1,54 @@
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: 'Arial', sans-serif;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+.table-container {
+  overflow: auto;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  height: fit-content;
+  box-sizing: border-box;
+  text-align: center; /* Center contents horizontally */
 }
 
-thead {
-  background-color: #007bff;
+table {
+  display: inline-block; /* Important: inline-block to allow centering */
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 10px;
+  min-width: max-content; /* Prevents it from shrinking too small */
 }
 
 th {
-  padding: 1rem;
-  color: #ffffff;
-  text-align: left;
-  text-transform: uppercase;
-  font-weight: normal;
-  border-bottom: 2px solid #0056b3;
+  background-color: #4a4e69;
+  color: white;
+  font-weight: bold;
+  width: 60px;
+  max-width: 150px;
+  padding: 1px 4px;
 }
 
-tbody tr {
-  border-bottom: 1px solid #dddddd;
-  background: #ffffff;
+tbody tr::after first-child td {
+  background-color: #4a4e69;
+  color: white;
+  font-weight: bold;
+}
+
+tbody td:first-child {
+  background-color: #4a4e69;
+  color: white;
+  font-weight: bold;
+  width: 60px;
+  max-width: 150px;
+  padding: 1px 4px;
+}
+
+tbody td {
+  border: 1px solid #ccc;
+  text-align: center;
+  padding: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 2px 20px; /*Change the last PX, for less/more white space*/
 }
 
   tbody tr:nth-child(even) {
@@ -56,6 +83,23 @@ td:nth-child(3) span {
   border-radius: 20px;
   margin-right: 0.25rem;
   font-size: 0.875rem;
+}
+
+.completed {
+  background-color: #c8e6c9;
+}
+
+.missing {
+  background-color: #ffcdd2;
+}
+
+.optional {
+  background-color: #eeeeee;
+}
+
+.if-performing {
+  background-color: #f0f0f0;
+  color: #aaa;
 }
 
 .drop-down {
