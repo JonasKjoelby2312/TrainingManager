@@ -13,7 +13,7 @@ public interface IEmployeeDAO
     Task<IEnumerable<Employee>> GetAllEmployeesAndStatusesAsync();
     Task<IEnumerable<Employee>> GetAllEmployeesAsync();
     Task<Employee> GetByIdAsync(int id);
-    Task<int> UpdateAsync(Employee entity);
+    Task<bool> UpdateAsync(int id, Employee entity);
 
     Task<MatrixParent> GetEmployeeComplianceByInitialsAsync(string inits);
 }

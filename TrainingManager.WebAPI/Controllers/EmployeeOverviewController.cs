@@ -51,7 +51,7 @@ namespace TrainingManager.Server.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Employee entity)
         {
-            _employeeDAO.UpdateAsync(entity);
+            _employeeDAO.UpdateAsync(id, entity);
         }
 
         // DELETE api/<EmployeeOverviewController>/5
