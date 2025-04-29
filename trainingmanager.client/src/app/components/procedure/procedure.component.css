@@ -13,7 +13,8 @@ th, td {
 }
 
 th {
-  background-color: #9c9a9a;
+  background-color: #4a4e69;
+  color: white;
 }
 
 tr:hover {

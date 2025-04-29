@@ -38,22 +38,38 @@ export class EmployeesComponent {
 
   openCreateModal() {
     this.isCreateModalActive = true;
+    document.addEventListener('keydown', this.handleEscapeKeyCreate);
   }
 
   closeCreateModal() {
     this.isCreateModalActive = false;
+    document.removeEventListener('keydown', this.handleEscapeKeyCreate);
   }
+
+  handleEscapeKeyCreate = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      this.closeCreateModal();
+    }
+  };
 
   openEditModal(employee: any) {
     this.selectedEmployee = { ...employee };
     this.tempEditRoles = [...employee.roles];
     this.isEditModalActive = true;
+    document.addEventListener('keydown', this.handleEscapeKeyEdit);
   }
 
   closeEditModal() {
     this.isEditModalActive = false;
     this.selectedEmployee = null;
+    document.removeEventListener('keydown', this.handleEscapeKeyEdit);
   }
+
+  handleEscapeKeyEdit = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      this.closeEditModal();
+    }
+  };
 
   loadAllCustomers() {
     this.http.get<Employee[]>('https://localhost:7227/api/EmployeeOverview').subscribe(data => {

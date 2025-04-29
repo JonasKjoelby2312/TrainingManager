@@ -7,16 +7,16 @@ table {
 }
 
 thead {
-  background-color: #007bff;
+  background-color: #4a4e69; /* new dark purple-gray background */
+  color: white;
 }
 
 th {
-  padding: 1rem;
-  color: #ffffff;
-  text-align: left;
-  text-transform: uppercase;
-  font-weight: normal;
-  border-bottom: 2px solid #0056b3;
+  padding: 0.5rem 0.75rem; /* reduced from 1rem */
+  font-size: 1.5rem; /* optional: slightly smaller font */
+  font-weight: 500; /* optional: a bit bolder than normal */
+  border-right: 2px solid #ccc;
+  color: white;
 }
 
 tbody tr {
@@ -35,6 +35,7 @@ tbody tr {
 td {
   padding: 0.75rem;
   transition: all 0.3s ease;
+  border-right: 2px solid #4a4e69;
 }
 
   td:nth-child(3) {
@@ -50,7 +51,7 @@ td {
 
 td:nth-child(3) span {
   display: inline-block;
-  background-color: #007bff;
+  background-color: #6c757d; /* gray shade */
   color: white;
   padding: 0.25rem 0.5rem;
   border-radius: 20px;
@@ -180,6 +181,11 @@ th {
   display: flex;
   align-items: center; /* Aligns the "Roles" text and "+" vertically */
   justify-content: space-between; /* Optional: puts space between text and "+" */
+}
+
+th:last-child,
+td:last-child {
+  border-right: none;
 }
 
 
