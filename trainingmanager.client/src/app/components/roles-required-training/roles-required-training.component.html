@@ -3,13 +3,16 @@
     <thead>
       <tr>
         <th>Procedure Name</th>
-        <th *ngFor="let role of rolesRequiredTraining">{{ role.roleName }}</th>
+        <th *ngFor="let role of rolesRequiredTraining">
+          <div class="vertical-text">{{ role.roleName }}</div>
+        </th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let procedureName of procedures">
         <td>{{ procedureName }}</td>
-        <td *ngFor="let role of rolesRequiredTraining">
+        <td *ngFor="let role of rolesRequiredTraining"
+            [ngClass]="'required-' + role.trainingRequiredTypes[procedureName]">
           {{ role.trainingRequiredTypes[procedureName] }}
         </td>
       </tr>

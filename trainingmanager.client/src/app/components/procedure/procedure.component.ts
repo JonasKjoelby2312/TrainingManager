@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ProcedureService, ProcedureWithRevision } from '../services/Procedure.Services';
 
 @Component({
@@ -28,6 +28,7 @@ export class ProcedureComponent implements OnInit {
   openRevisionHistory(procedure: ProcedureWithRevision): void {
     this.selectedProcedure = procedure;
     this.showModal = true;
+    document.addEventListener('keydown', this.handleEscapeKey);
 
     this.procedureService.getAllRevisionsForProcedure(procedure.procedureName).subscribe({
       next: (data) => {
@@ -44,8 +45,14 @@ export class ProcedureComponent implements OnInit {
     this.showModal = false;
     this.revisionHistory = [];
     this.selectedProcedure = null;
+    document.removeEventListener('keydown', this.handleEscapeKey);
   }
 
+  handleEscapeKey = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      this.closeModal();
+    }
+  };
 
 
 }
