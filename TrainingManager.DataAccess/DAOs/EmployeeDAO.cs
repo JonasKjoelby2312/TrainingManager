@@ -18,12 +18,16 @@ public class EmployeeDAO : BaseDAO, IEmployeeDAO
     private readonly string INSERT_EMPLOYEE = "INSERT INTO employees (employee_email, employee_initials, employee_is_active) Values (@Email, @Initials, @IsActive) SELECT CAST(SCOPE_IDENTITY() as INT);";
     private readonly string INSERT_EMPLOYEE_ROLES = "INSERT INTO employee_roles (fk_employee_id, fk_role_id) VALUES (@EmployeeId, @RoleId)";
     private readonly string GET_ROLES_IDS_BY_ROLE_NAMES = "SELECT role_id FROM treat_roles WHERE role_name IN @Roles"; //Marked
+    private readonly string UPDATE_EMPLOYEE_BY_ID = "";
+    private readonly string UPDATE_EMPLOYEE_ROLES_BY_EMPLOYEE_ID = "";
+    private readonly string GET_EMPLOYEES_ROLES_BY_EMPLOYEE_ID = "";
+
 
     public EmployeeDAO(string connectionString) : base(connectionString)
     {
     }
 
-    public async Task<int> CreateAsync(Employee entity)
+    public async Task<int> CreateAsync(Employee entity) //TODO Husk at lave initials og email UNIQUE i DB
     {
         using var connection = CreateConnection();
         connection.Open();
@@ -139,8 +143,34 @@ public class EmployeeDAO : BaseDAO, IEmployeeDAO
         }
     }
 
-    public Task<int> UpdateAsync(Employee entity)
+    public async Task<int> UpdateAsync(Employee entity)
     {
-        throw new NotImplementedException();
+        using var connection = CreateConnection();
+        connection.Open();
+        IDbTransaction transaction = connection.BeginTransaction();
+        try
+        {
+            await connection.QueryAsync<int>(UPDATE_EMPLOYEE_BY_ID, new { Email = entity.Email, Initials = entity.Initials, IsActive = entity.IsActive, EmployeeId = entity.EmployeeId }, transaction);
+
+            IEnumerable<string> currEmpployeesRolesIdsInDB = await connection.QueryAsync<string>(GET_EMPLOYEES_ROLES_BY_EMPLOYEE_ID, new { EmployeeId = entity.Roles }, transaction);
+
+            //Sammenlign frontend-liste med den fra db, hvor roller der mangler tilføjes efter (hold styr på dem med liste)
+            //Slet roller der ikke forekom på frontend-listen
+
+            //foreach (int roleId in rolesIds)
+            //{
+            //    await connection.QueryAsync(UPDATE_EMPLOYEE_ROLES_BY_EMPLOYEE_ID, new { EmployeeId = entity.EmployeeId, RoleId = roleId }, transaction);
+            //}
+
+            //transaction.Commit();
+
+            //return IdFromDB;
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            transaction.Rollback();
+            throw new Exception($"Could not create employee with initials: {entity.Initials}, message was: {ex.Message}", ex);
+        }
     }
 }

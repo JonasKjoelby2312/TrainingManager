@@ -1,5 +1,9 @@
-<input id="searchInput" type="text" #searchInput/>
-<input type="button" value="Search" id="searchButton" (click)="searchForCompliance(searchInput.value)"/>
+<div class="drop-down">
+  <input class="search-input-drop-down" type="text" (input)="onInputChange(dropDownSearch.value)" (focus)="toggleDropDown(); onInputChange('')" (blur)="toggleDropDown()" placeholder="Search Initials" #dropDownSearch/>
+  <div id="drop-down-content" class="drop-down-content" *ngIf="filteredInitials.length > 0 && showDropDown">
+    <p class="drop-down-option" *ngFor="let initials of filteredInitials" (mousedown)="dropDownSearch.value = initials; searchForCompliance(initials)">{{ initials }}</p>
+  </div>
+</div>
 
 <table>
   <thead>

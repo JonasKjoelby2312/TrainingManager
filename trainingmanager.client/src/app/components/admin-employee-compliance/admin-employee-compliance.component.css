@@ -57,3 +57,36 @@ td:nth-child(3) span {
   margin-right: 0.25rem;
   font-size: 0.875rem;
 }
+
+.drop-down {
+  position: relative; /* Ensure the dropdown is positioned relative to this container */
+  width: 25%; /* Make the container take up the full width of the input */
+}
+
+.drop-down-content {
+  position: absolute; /* Position it relative to the .drop-down container */
+  background-color: #fff; /* White background */
+  min-width: 100%; /* Match the width of the input */
+  width: 100%;
+  border: 1px solid #ccc; /* Border around the dropdown */
+  border-top: none; /* Remove the top border to make it look connected to the input */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Drop shadow for visibility */
+  z-index: 1000; /* Ensure it appears above other content */
+  max-height: 200px; /* Limit the height */
+  overflow-y: auto; /* Add vertical scroll if content exceeds max-height */
+  border-radius: 4px; /* Rounded corners */
+}
+
+.drop-down-content.show {
+  display: block;
+}
+
+  .drop-down-option:hover {
+    background-color: #f1f1f1; /* Light gray background on hover */
+    cursor: pointer;
+  }
+
+.search-input-drop-down:focus {
+  outline: none; /* Remove default focus outline */
+  border-color: #007bff; /* Blue border on focus to indicate interaction */
+}

@@ -29,34 +29,16 @@ export class AdminComplianceComponent implements OnInit {
   matrixObject: any;
   matrixData: string[][] = [];
   tableRows: any[] = [];
-  employeeInitials: string[] = [];
 
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
 
     this.http.get<AdminComplianceComponent>('https://localhost:7227/api/AdminComplianceMatrix').subscribe(data => {
-      console.log('API response: ', data)
       this.matrixObject = data;
       this.matrixData = this.matrixObject.matrix;
-      //this.employeeInitials = data.map(e => e.initials);
-      console.log('Matrix_List:', this.matrixObject.matrix);
-
-      //const procedureMap: { [procedure: string]: any } = {};
-
-      ////Laver en række for hver procedure hvis den ikke eksistere endnu.
-      ////Sætter værdien for emplyee's column i det row
-      //for (const employee of data) { 
-      //  for (const [procedure, status] of Object.entries(employee.employeeTrainingStatuses)) {
-      //    if (!procedureMap[procedure]) {
-      //      procedureMap[procedure] = { procedure };
-      //    }
-      //    procedureMap[procedure][employee.initials] = status;
-      //  }
-      //}
-
-      //this.tableRows = this.matrixObject.matrix; //Object.values(procedureMap);
-      console.log('Table rows:', this.tableRows);
+    }, error => {
+      console.log(error);
     });
   }
 
