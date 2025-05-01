@@ -10,7 +10,7 @@ namespace TrainingManager.DataAccess.DAOs;
 public interface IRoleDAO
 {
     Task<int> CreateAsync(Role entity);
-    Task<IEnumerable<Role>> GetAllRolesForEmployeeAsync(int id);
+    Task<IEnumerable<string>> GetAllRolesAsync();
     Task<Role> GetRoleByIdAsync(int id);
     Task<int> UpdateAsync(Role entity);
 }

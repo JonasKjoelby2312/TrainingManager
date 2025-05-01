@@ -188,4 +188,14 @@ td:last-child {
   border-right: none;
 }
 
+.modal-employee-main-properties {
+    border: 1.5px solid black;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    padding: 5px;
+}
 
+.roles-semiheader-label {
+    font-size: large;
+    font-weight: 700;
+}

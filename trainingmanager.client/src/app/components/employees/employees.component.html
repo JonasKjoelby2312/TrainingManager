@@ -29,10 +29,17 @@
   <div class="modal-content" (click)="$event.stopPropagation()">
     <h3>Create new Employee</h3>
 
-    <input type="text" #initialsInput placeholder="Initials" />
-    <input type="text" #emailInput placeholder="Email" />
+    <div class="modal-employee-main-properties">
+      <input type="text" #initialsInput placeholder="Initials" />
+      <input type="text" #emailInput placeholder="Email" />
+      <label>
+        <input type="checkbox" #isActiveInput />
+        IsActive
+      </label>
+    </div>
 
-    <div *ngFor="let role of rolesList">
+    <label class="roles-semiheader-label">Pick employee roles:</label>
+    <div *ngFor="let role of listOfAllRoleNames">
       <label>
         <input type="checkbox"
                [value]="role"
@@ -44,7 +51,7 @@
 
     <div class="modal-actions">
       <button class="button close-btn" (click)="closeCreateModal()">Close</button>
-      <button class="button create-btn" (click)="createNewEmployee(initialsInput, emailInput)">Create</button>
+      <button class="button create-btn" (click)="createNewEmployee(initialsInput.value, emailInput.value, isActiveInput.checked)">Create</button>
     </div>
   </div>
 </div>
@@ -55,10 +62,17 @@
   <div class="modal-content" (click)="$event.stopPropagation()">
     <h3>Edit Employee</h3>
 
-    <input type="text" #editInitialsInput [value]="selectedEmployee.initials" placeholder="Initials" />
-    <input type="text" #editEmailInput [value]="selectedEmployee.email" placeholder="Email" />
+    <div class="modal-employee-main-properties">
+      <input type="text" #editInitialsInput [value]="selectedEmployee.initials" placeholder="Initials" />
+      <input type="text" #editEmailInput [value]="selectedEmployee.email" placeholder="Email" />
+      <label>
+        <input type="checkbox" #editIsActiveInput [checked]="selectedEmployee.isActive" />
+        IsActive
+      </label>
+    </div>
 
-    <div *ngFor="let role of rolesList">
+    <label class="roles-semiheader-label">Pick employee roles:</label>
+    <div *ngFor="let role of listOfAllRoleNames">
       <label>
         <input type="checkbox"
                [value]="role"
@@ -70,7 +84,7 @@
 
     <div class="modal-actions">
       <button class="button close-btn" (click)="closeEditModal()">Close</button>
-      <button class="button create-btn" (click)="saveEditChanges(editInitialsInput.value, editEmailInput.value)">Save</button>
+      <button class="button create-btn" (click)="saveEditChanges(editInitialsInput.value, editEmailInput.value, editIsActiveInput.checked)">Save</button>
     </div>
   </div>
 </div>

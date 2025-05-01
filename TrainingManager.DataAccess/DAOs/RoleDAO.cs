@@ -10,7 +10,7 @@ namespace TrainingManager.DataAccess.DAOs;
 
 public class RoleDAO : BaseDAO, IRoleDAO
 {
-    private readonly string GET_ALL_ROLES_BY_ID = "";
+    private readonly string GET_ALL_ROLES = "SELECT role_name FROM treat_roles;";
 
     public RoleDAO(string connectionString) : base(connectionString)
     {
@@ -21,19 +21,20 @@ public class RoleDAO : BaseDAO, IRoleDAO
         throw new NotImplementedException();
     }
 
-    public async Task<IEnumerable<Role>> GetAllRolesForEmployeeAsync(int id)
+    public async Task<IEnumerable<string>> GetAllRolesAsync()
     {
         using var connection = CreateConnection();
         connection.Open();
         try
         {
-            var roles = await connection.QueryAsync<Role>(GET_ALL_ROLES_BY_ID, new {Id = id});
+            IEnumerable<string> roles = await connection.QueryAsync<string>(GET_ALL_ROLES);
             connection.Close();
             return roles;
         }
         catch (Exception ex)
         {
-            throw new Exception($"Couldn't get all roles by id: {id}, message was: {ex.Message}", ex);
+            connection.Close();
+            throw new Exception($"Couldn't get all role names, message was: {ex.Message}", ex);
         }
     }
 

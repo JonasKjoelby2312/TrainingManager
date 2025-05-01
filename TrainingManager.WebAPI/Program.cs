@@ -35,6 +35,7 @@ public class Program
         builder.Services.AddSingleton<IProcedureDAO>(_ => new ProcedureDAO(connectionString));
         builder.Services.AddSingleton<IMatrixDAO>(_ => new MatrixDAO(connectionString));
         builder.Services.AddSingleton<IRolesRequiredTrainingDAO>(_ => new RolesRequiredTrainingDAO(connectionString));
+        builder.Services.AddSingleton<IRoleDAO>(_ => new RoleDAO(connectionString));
 
 
         var app = builder.Build();

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 interface Employee {
+  employeeId: number;
   initials: string;
   email: string;
   isActive: boolean;
@@ -20,9 +22,9 @@ export class EmployeesComponent {
   tableRows: any[] = [];
   isCreateModalActive: boolean = false;
   newEmployee: Employee = {
-    initials: "", email: "", isActive: true, roles: [], employeeTrainingStatuses: {},
+    employeeId: -1, initials: "", email: "", isActive: true, roles: [], employeeTrainingStatuses: {},
   };
-  rolesList: string[] = ["Tester", "Application/Data Architect", "Bookkeeper", "Chief Executive Officer", "Chief Operation Officer", "Developer", "Human Resources", "Internal IT Support", "Lead Developer", "Project Manager", "PRRC", "QARA Associate", "QARA Manager", "R&D Manager", "Research Associate", "Sales/Key Account Manager", "Software Team Manager", "Specification Engineer", "Specification Team Manager", "Support Manager", "Supporter", "System Architect", "Test Manager", "Transfer/ Delivery Manager"];
+  listOfAllRoleNames: string[] = ["Error: Could not load list of roles"];
   selectedRoles: string[] = [];
   selectedEmployee: any = null;
   isEditModalActive = false;
@@ -30,11 +32,15 @@ export class EmployeesComponent {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    this.loadListOfRoles().subscribe(roles => {
+      this.listOfAllRoleNames = roles });
     this.http.get<Employee[]>('https://localhost:7227/api/EmployeeOverview').subscribe(data => {
       this.tableRows = data; console.log(data) }, error => console.log(error));
   }
 
-  
+  loadListOfRoles(): Observable<string[]> {
+    return this.http.get<string[]>('https://localhost:7227/api/Roles');
+  }
 
   openCreateModal() {
     this.isCreateModalActive = true;
@@ -77,11 +83,12 @@ export class EmployeesComponent {
     }, error => console.log(error));
   }
 
-  createNewEmployee(initialsInput: HTMLInputElement, emailInput: HTMLInputElement) {
+  createNewEmployee(initialsInput: string, emailInput: string, isActive: boolean) {
     this.newEmployee = {
-      initials: initialsInput.value,
-      email: emailInput.value,
-      isActive: true,
+      employeeId: -1, //dummy id, correct id is set in db
+      initials: initialsInput,
+      email: emailInput,
+      isActive: isActive,
       roles: [...this.selectedRoles],
       employeeTrainingStatuses: {}
     };
@@ -102,18 +109,33 @@ export class EmployeesComponent {
     }
   }
 
-  saveEditChanges(initials: string, email: string) {
+  saveEditChanges(initials: string, email: string, isActive: boolean) {
     const index = this.tableRows.findIndex(emp => emp.email === this.selectedEmployee.email);
+    console.log(this.tableRows[index]);
     if (index > -1) {
       this.tableRows[index] = {
         ...this.selectedEmployee,
         initials,
         email,
+        isActive,
         roles: [...this.tempEditRoles]
       };
+      console.log(this.tableRows[index]);
+      this.updateEmployee(this.tableRows[index]).subscribe(success => {
+        if (success) {
+          //write out success
+          console.log(this.tableRows[index]);
+        }
+        else {
+          //write it failed
+        }
+      });
     }
     this.closeEditModal();
-    this.ngOnInit();
+  }
+
+  updateEmployee(employee: Employee): Observable<boolean> {
+    return this.http.put<boolean>('https://localhost:7227/api/EmployeeOverview/' + employee.employeeId, employee);
   }
 
   onTempEditRoleChange(event: any) {
