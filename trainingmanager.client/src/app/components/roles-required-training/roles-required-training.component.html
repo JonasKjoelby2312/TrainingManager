@@ -10,7 +10,7 @@
         <th>
           <div style="display: flex; flex-direction: column; align-items: start; height: 100%;">
             <span>Procedure Name</span>
-            <button class="createNewRole">Create New Role</button>
+            <button class="createNewRole" (click)="openCreateRole()">Create New Role</button>
           </div>
         </th>
         <th *ngFor="let role of rolesRequiredTraining">
@@ -30,9 +30,24 @@
   </table>
 </div>
 
+
+<div *ngIf="isCreateRoleActive" class="create-role-modal" (click)="closeCreateRole()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>Create new Employee</h3>
+
+    CONTENT
+
+    <div class="modal-actions">
+      <button class="button close-btn" (click)="closeCreateRole()">Close</button>
+      <button class="button create-btn">Create</button>
+    </div>
+  </div>
+</div>
+
+
 <!-- Modal Structure -->
-<div *ngIf="isCreateProcedureActive && rolesRequiredTraining.length > 0" class="modal-backdrop" (click)="onCancelProcedure()">
-  <div class="modal" (click)="$event.stopPropagation()">
+<div *ngIf="isCreateProcedureActive && rolesRequiredTraining.length > 0" class="create-role-modal" (click)="onCancelProcedure()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
     <h2>Create Training Procedure</h2>
     <input type="text" #procedureInput placeholder="Enter Procedure Name" class="procedure-input" />
 

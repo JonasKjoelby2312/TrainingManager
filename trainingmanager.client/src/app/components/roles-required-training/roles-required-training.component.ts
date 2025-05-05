@@ -19,6 +19,7 @@ export class RolesRequiredTrainingComponent {
   rolesRequiredTraining: RolesRequiredTraining[] = [];
   procedures: string[] = [];
   isCreateProcedureActive: boolean = false;
+  isCreateRoleActive: boolean = false;
 
   // For procedure input and training selections
   procedureInputValue: string = '';
@@ -43,6 +44,16 @@ export class RolesRequiredTrainingComponent {
     );
   }
 
+  openCreateRole() {
+    this.isCreateRoleActive = true;
+    console.log("open, ", this.isCreateRoleActive);
+  }
+
+  closeCreateRole() {
+    this.isCreateRoleActive = false;
+    console.log("open, ", this.isCreateRoleActive);
+  }
+
   // Show modal
   openCreateProcedure() {
     this.isCreateProcedureActive = true;
@@ -52,6 +63,7 @@ export class RolesRequiredTrainingComponent {
 
   // Cancel modal
   onCancelProcedure() {
+    console.log("Just got cancelled!");
     this.isCreateProcedureActive = false;
     this.trainingSelections = {};
     this.procedureInputValue = '';
