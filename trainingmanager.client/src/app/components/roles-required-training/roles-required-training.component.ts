@@ -79,8 +79,31 @@ export class RolesRequiredTrainingComponent {
     console.log('Creating Procedure:', procedureName);
     console.log('Selected Role Trainings:', this.trainingSelections);
 
-    // Add POST logic here to send data to the API if needed
+    const requestBody = {
+      procedureName: procedureName,
+      revisionNumber: 1.0,
+      isActive: true, // or false depending on your app logic
+      historyText: 'Initial creation', // You can replace or prompt for this
+      rolesRequiredTrainingList: Object.entries(this.trainingSelections).map(
+        ([roleId, requiredType]) => ({
+          roleId: Number(roleId),
+          requiredType: requiredType
+        })
+      )
+    };
 
+    this.http.post('https://localhost:7227/api/ProcedureOverview', requestBody)
+      .subscribe(
+        response => {
+          console.log('Procedure created successfully', response);
+          // Optionally refresh or update UI
+        },
+        error => {
+          console.error('Error creating procedure', error);
+        }
+      );
+
+    // Reset UI
     this.isCreateProcedureActive = false;
     this.trainingSelections = {};
     this.procedureInputValue = '';
