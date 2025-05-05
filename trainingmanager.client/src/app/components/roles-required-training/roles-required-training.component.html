@@ -1,8 +1,18 @@
 <div class="table-container">
+  <!-- ACTION BUTTONS ABOVE THE TABLE -->
+  <div class="table-actions">
+    <button class="createNewProcedure" (click)="openCreateProcedure()">Create New Procedure</button>
+  </div>
+
   <table>
     <thead>
       <tr>
-        <th>Procedure Name</th>
+        <th>
+          <div style="display: flex; flex-direction: column; align-items: start; height: 100%;">
+            <span>Procedure Name</span>
+            <button class="createNewRole">Create New Role</button>
+          </div>
+        </th>
         <th *ngFor="let role of rolesRequiredTraining">
           <div class="vertical-text">{{ role.roleName }}</div>
         </th>
@@ -18,4 +28,35 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+<!-- Modal Structure -->
+<div *ngIf="isCreateProcedureActive && rolesRequiredTraining.length > 0" class="modal-backdrop" (click)="onCancelProcedure()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h2>Create Training Procedure</h2>
+    <input type="text" #procedureInput placeholder="Enter Procedure Name" class="procedure-input" />
+
+    <div *ngFor="let role of rolesRequiredTraining" class="role-section">
+      <div class="role-name">{{ role.roleName }}</div>
+      <div class="radio-options">
+        <label>
+          <input type="radio" [name]="'role-' + role.roleId" value="0" (change)="setRoleSelection(role.roleId, 0)" />
+          Optional
+        </label>
+        <label>
+          <input type="radio" [name]="'role-' + role.roleId" value="1" (change)="setRoleSelection(role.roleId, 1)" />
+          If Performing
+        </label>
+        <label>
+          <input type="radio" [name]="'role-' + role.roleId" value="2" (change)="setRoleSelection(role.roleId, 2)" />
+          Mandatory
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button (click)="onCancelProcedure()" class="close-btn">Cancel</button>
+      <button (click)="onCreateProcedure(procedureInput.value)" class="create-btn">Create</button>
+    </div>
+  </div>
 </div>
