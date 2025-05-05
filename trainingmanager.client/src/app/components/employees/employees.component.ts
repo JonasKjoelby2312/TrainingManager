@@ -35,7 +35,7 @@ export class EmployeesComponent {
     this.loadListOfRoles().subscribe(roles => {
       this.listOfAllRoleNames = roles });
     this.http.get<Employee[]>('https://localhost:7227/api/EmployeeOverview').subscribe(data => {
-      this.tableRows = data; console.log(data) }, error => console.log(error));
+      this.tableRows = data }, error => console.log(error));
   }
 
   loadListOfRoles(): Observable<string[]> {

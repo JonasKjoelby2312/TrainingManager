@@ -67,7 +67,7 @@ public class EmployeeDAO : BaseDAO, IEmployeeDAO
             //EmployeeId - Initials - Email - IsActive - RolesAsString
             var allEmployees = await connection.QueryAsync(GET_ALL_EMPLOYEES);
 
-            foreach (var dbEmployee in allEmployees) //Destinction between employee pulled up from database, and employee in DataAccess
+            foreach (var dbEmployee in allEmployees)
             {
                 List<string> roles = ((string)dbEmployee.RolesAsString).Split(',').Select(role => role.Trim()).ToList();
                 var trainingStatuses = await connection.QueryAsync(GET_TRAINING_STATUS, new { Initials = dbEmployee.Initials });
