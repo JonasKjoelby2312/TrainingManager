@@ -20,6 +20,7 @@ interface Employee {
 export class EmployeesComponent {
   employees: Employee[] = [];
   tableRows: any[] = [];
+  inactivesOpened: boolean = false;
   isCreateModalActive: boolean = false;
   newEmployee: Employee = {
     employeeId: -1, initials: "", email: "", isActive: true, roles: [], employeeTrainingStatuses: {},
@@ -34,8 +35,11 @@ export class EmployeesComponent {
   ngOnInit() {
     this.loadListOfRoles().subscribe(roles => {
       this.listOfAllRoleNames = roles });
-    this.http.get<Employee[]>('https://localhost:7227/api/EmployeeOverview').subscribe(data => {
-      this.tableRows = data }, error => console.log(error));
+    this.loadAllEmployees();
+  }
+
+  toggleInactives() {
+    this.inactivesOpened = !this.inactivesOpened;
   }
 
   loadListOfRoles(): Observable<string[]> {
@@ -77,9 +81,10 @@ export class EmployeesComponent {
     }
   };
 
-  loadAllCustomers() {
+  loadAllEmployees() {
+    this.tableRows = [];
     this.http.get<Employee[]>('https://localhost:7227/api/EmployeeOverview').subscribe(data => {
-      this.tableRows = data; console.log(data)
+      this.tableRows = data;
     }, error => console.log(error));
   }
 
@@ -95,7 +100,7 @@ export class EmployeesComponent {
     this.http.post<number>('https://localhost:7227/api/EmployeeOverview', this.newEmployee)
       .subscribe(() => {
         this.closeCreateModal();
-        this.loadAllCustomers();
+        this.loadAllEmployees();
         this.selectedRoles = [];
       }); 
   }
@@ -122,11 +127,15 @@ export class EmployeesComponent {
       };
       console.log(this.tableRows[index]);
       this.updateEmployee(this.tableRows[index]).subscribe(success => {
+        console.log(success);
         if (success) {
           //write out success
           console.log(this.tableRows[index]);
+          console.log("success");
+          this.loadAllEmployees();
         }
         else {
+          console.log("fail");
           //write it failed
         }
       });

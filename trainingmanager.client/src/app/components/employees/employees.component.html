@@ -1,28 +1,63 @@
-<table>
-  <thead>
-    <tr>
-      <th>Initials</th>
-      <th>Email</th>
-      <th>
-        <div class="roles-th-container">
-          <div>Roles</div>
-          <div (click)="openCreateModal()" class="create-new-plus">+</div>
-        </div>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let employee of tableRows" (click)="openEditModal(employee)" class="clickable-row">
-      <td>{{ employee.initials }}</td>
-      <td>{{ employee.email }}</td>
-      <td>
-        <div class="roles-container">
-          <span *ngFor="let role of employee.roles" class="role-badge">{{ role }}</span>
-        </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="active-employees-table-container">
+  <table class="active-employees-table">
+    <thead>
+      <tr>
+        <th>Initials</th>
+        <th>Email</th>
+        <th>
+          <div class="roles-th-container">
+            <div>Roles</div>
+            <div (click)="openCreateModal()" class="create-new-plus">+</div>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let employee of tableRows">
+        <tr *ngIf="employee.isActive === true" (click)="openEditModal(employee)" class="clickable-row">
+          <td>{{ employee.initials }}</td>
+          <td>{{ employee.email }}</td>
+          <td>
+            <div class="roles-container">
+              <span *ngFor="let role of employee.roles" class="role-badge">{{ role }}</span>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+
+<div class="inactive-employees-container">
+  <h2 class="inactive-pseudo-btn" (click)="toggleInactives()">Inactive Employees</h2>
+  <table class="inactive-employees-table" *ngIf="inactivesOpened">
+    <thead>
+      <tr>
+        <th>Initials</th>
+        <th>Email</th>
+        <th>
+          <div class="roles-th-container">
+            <div>Roles</div>
+            <div (click)="openCreateModal()" class="create-new-plus">+</div>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let employee of tableRows">
+        <tr *ngIf="employee.isActive === false" (click)="openEditModal(employee)" class="clickable-row">
+          <td>{{ employee.initials }}</td>
+          <td>{{ employee.email }}</td>
+          <td>
+            <div class="roles-container">
+              <span *ngFor="let role of employee.roles" class="role-badge">{{ role }}</span>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
 
 
 <div *ngIf="isCreateModalActive" class="create-modal" (click)="closeCreateModal()">
