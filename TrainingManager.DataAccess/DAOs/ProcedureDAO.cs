@@ -14,7 +14,7 @@ namespace TrainingManager.DataAccess.DAOs;
 
 public class ProcedureDAO : BaseDAO, IProcedureDAO
 {
-    private readonly string GET_ALL_PROCEDURE_WITH_ACTIVE_REVISION = "SELECT tp.procedure_name AS ProcedureName, r.revision AS RevisionNumber, r.revision_is_active AS IsActive, r.revision_history_text AS HistoryText FROM treat_procedures tp JOIN revisions r ON r.fk_treat_procedure_id = tp.procedure_id WHERE r.revision_is_active = 1 ORDER BY tp.procedure_name;";
+    private readonly string GET_ALL_PROCEDURE_WITH_ACTIVE_REVISION = "SELECT tp.procedure_name AS ProcedureName, r.revision AS RevisionNumber, r.revision_is_active AS IsActive, r.revision_history_text AS HistoryText FROM treat_procedures tp JOIN revisions r ON r.fk_treat_procedure_id = tp.procedure_id WHERE r.revision_is_active = 1 ORDER BY tp.procedure_id;";
     private readonly string GET_ALL_REVISIONS_FOR_PROCEDURE = "SELECT tp.procedure_name AS ProcedureName, r.revision AS RevisionNumber, r.revision_is_active AS IsActive, r.revision_history_text AS HistoryText FROM revisions r JOIN treat_procedures tp ON tp.procedure_id = r.fk_treat_procedure_id WHERE tp.procedure_name = @ProcedureName ORDER BY r.revision DESC;";
     private readonly string INSERT_INTO_PROCEDURES = "INSERT INTO treat_procedures (procedure_name) OUTPUT INSERTED.procedure_id VALUES (@ProcedureName)";
     private readonly string INSERT_INTO_REVISIONS = "INSERT INTO revisions (revision, revision_is_active, revision_history_text, fk_treat_procedure_id) VALUES(@RevisionNumber, @IsActive, @HistoryText, @ProcedureId)";
@@ -113,7 +113,7 @@ public class ProcedureDAO : BaseDAO, IProcedureDAO
         }
     }
 
-
+        
 
     public Task<Procedure> GetByIdAsync(int id)
     {
