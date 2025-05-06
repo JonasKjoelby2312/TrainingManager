@@ -5,6 +5,7 @@
   font-family: 'Arial', sans-serif;
   margin: 0 auto;
   margin-top: 80px;
+  margin-bottom: 30px;
 }
 
 .inactive-pseudo-btn {
@@ -221,3 +222,4 @@ td:last-child {
     font-size: large;
     font-weight: 700;
 }
+
