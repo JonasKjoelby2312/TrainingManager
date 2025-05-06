@@ -1,3 +1,25 @@
+.inactive-employees-container {
+  max-width: 90%;
+  border: solid black 1.5px;
+  position: center;
+  font-family: 'Arial', sans-serif;
+  margin: 0 auto;
+  margin-top: 80px;
+}
+
+.inactive-pseudo-btn {
+    font-size: large;
+    margin: auto;
+}
+
+.inactive-pseudo-btn:hover {
+    cursor: pointer;
+}
+
+.inactive-employees-table {
+    width: 100%;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;

@@ -11,6 +11,7 @@ public interface IEmployeeDAO
 {
     Task<int> CreateAsync(Employee entity);
     Task<IEnumerable<Employee>> GetAllEmployeesAndStatusesAsync();
+    Task<IEnumerable<Employee>> GetAllActiveAndInactiveEmployees();
     Task<IEnumerable<Employee>> GetAllEmployeesAsync();
     Task<Employee> GetByIdAsync(int id);
     Task<bool> UpdateAsync(int id, Employee entity);
