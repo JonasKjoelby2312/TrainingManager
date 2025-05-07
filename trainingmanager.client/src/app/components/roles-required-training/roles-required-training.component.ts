@@ -21,9 +21,13 @@ export class RolesRequiredTrainingComponent {
   isCreateProcedureActive: boolean = false;
   isCreateRoleActive: boolean = false;
 
-  // For procedure input and training selections
+  // For procedure input and training selections for create procedure
   procedureInputValue: string = '';
-  trainingSelections: { [roleId: number]: number } = {};
+  trainingSelectionsCreateProcedure: { [roleId: number]: number } = {};
+
+  // For procedure input and training selections for create role
+  roleInputValue: string = '';
+  trainingSelectionsCreateRole: { [procedureName: string]: number } = {};
 
   constructor(private http: HttpClient) { }
 
@@ -51,7 +55,40 @@ export class RolesRequiredTrainingComponent {
 
   closeCreateRole() {
     this.isCreateRoleActive = false;
-    console.log("open, ", this.isCreateRoleActive);
+    console.log("close, ", this.isCreateRoleActive);
+    this.trainingSelectionsCreateRole = {};
+    this.roleInputValue = '';
+  }
+
+  submitCreateRole(roleName: string) {
+    console.log('Creating Role:', roleName);
+    console.log('Selected Procedure Required Types:', this.trainingSelectionsCreateRole);
+
+    const requestBody = {
+      roleName: roleName,
+      proceduresRequiredTrainingList: Object.entries(this.trainingSelectionsCreateRole).map(
+        ([procedureName, requiredType]) => ({
+          procedureName: procedureName,
+          requiredType: requiredType
+        })
+      )
+    };
+
+    this.http.post('https://localhost:7227/api/Roles', requestBody)
+      .subscribe(
+        response => {
+          console.log('Role created successfully', response);
+          // Optionally refresh or update UI
+        },
+        error => {
+          console.error('Error creating Role', error);
+        }
+      );
+
+    // Reset UI
+    this.isCreateProcedureActive = false;
+    this.trainingSelectionsCreateProcedure = {};
+    this.procedureInputValue = '';
   }
 
   // Show modal
@@ -65,26 +102,31 @@ export class RolesRequiredTrainingComponent {
   onCancelProcedure() {
     console.log("Just got cancelled!");
     this.isCreateProcedureActive = false;
-    this.trainingSelections = {};
+    this.trainingSelectionsCreateProcedure = {};
     this.procedureInputValue = '';
   }
 
-  // Handle radio button change
+  // Handle radio button change on create procedure
   setRoleSelection(roleId: number, value: number) {
-    this.trainingSelections[roleId] = value;
+    this.trainingSelectionsCreateProcedure[roleId] = value;
+  }
+
+  // Handle radio button change on create role
+  setProcedureSelection(procedureName: string, value: number) {
+    this.trainingSelectionsCreateRole[procedureName] = value;
   }
 
   // Handle create
   onCreateProcedure(procedureName: string) {
     console.log('Creating Procedure:', procedureName);
-    console.log('Selected Role Trainings:', this.trainingSelections);
+    console.log('Selected Role Trainings:', this.trainingSelectionsCreateProcedure);
 
     const requestBody = {
       procedureName: procedureName,
       revisionNumber: 1.0,
       isActive: true, // or false depending on your app logic
       historyText: 'Initial creation', // You can replace or prompt for this
-      rolesRequiredTrainingList: Object.entries(this.trainingSelections).map(
+      rolesRequiredTrainingList: Object.entries(this.trainingSelectionsCreateProcedure).map(
         ([roleId, requiredType]) => ({
           roleId: Number(roleId),
           requiredType: requiredType
@@ -105,7 +147,7 @@ export class RolesRequiredTrainingComponent {
 
     // Reset UI
     this.isCreateProcedureActive = false;
-    this.trainingSelections = {};
+    this.trainingSelectionsCreateProcedure = {};
     this.procedureInputValue = '';
   }
 }

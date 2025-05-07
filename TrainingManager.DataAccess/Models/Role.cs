@@ -10,7 +10,11 @@ public class Role
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public List<Procedure> MandatoryTraining { get; set; }
-    public List<Procedure> IfPerformingTraining { get; set; }
-    public List<Procedure> OptionalTraining { get; set; }
+    public bool IsActive { get; set; }
+    public Dictionary<string, int> ProceduresRequiredTypes { get; set; }
+
+    public Role()
+    {
+        ProceduresRequiredTypes = new Dictionary<string, int>();
+    }
 }
