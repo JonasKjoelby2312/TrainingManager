@@ -1,3 +1,13 @@
+.createNewProcedure {
+  margin: 5px;
+  margin-left: 0px;
+}
+
+.createNewRole {
+    margin: 5px;
+    margin-left: 0px;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;

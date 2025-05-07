@@ -92,36 +92,6 @@ public class EmployeeDAO : BaseDAO, IEmployeeDAO
         }
     }
 
-    public async Task<IEnumerable<Employee>> GetAllActiveAndInactiveEmployees()
-    {
-        using var connection = CreateConnection();
-        connection.Open();
-        try
-        {
-            List<Employee> res = new List<Employee>();
-
-            //EmployeeId - Initials - Email - IsActive - RolesAsString
-            var allEmployees = await connection.QueryAsync(GET_ALL_EMPLOYEES);
-
-            foreach (var dbEmployee in allEmployees)
-            {
-                List<string> roles = ((string)dbEmployee.RolesAsString).Split(',').Select(role => role.Trim()).ToList();
-
-                Employee currEmployee = new Employee(dbEmployee.EmployeeId, dbEmployee.Initials, dbEmployee.Email, dbEmployee.IsActive);
-                currEmployee.Roles = roles;
-
-                res.Add(currEmployee);
-            }
-
-            connection.Close();
-            return res;
-        }
-        catch (Exception ex)
-        {
-            throw new Exception($"Couldn't get all inactive employees, message was: {ex.Message}", ex);
-        }
-    }
-
     public async Task<IEnumerable<Employee>> GetAllEmployeesAsync() // depricated - also not currently used
     {
         using var connection = CreateConnection();

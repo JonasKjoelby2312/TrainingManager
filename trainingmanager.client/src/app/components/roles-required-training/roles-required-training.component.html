@@ -2,6 +2,7 @@
   <!-- ACTION BUTTONS ABOVE THE TABLE -->
   <div class="table-actions">
     <button class="createNewProcedure" (click)="openCreateProcedure()">Create New Procedure</button>
+    <button class="createNewRole" (click)="openCreateRole()">Create New Role</button>
   </div>
 
   <table>
@@ -9,8 +10,7 @@
       <tr>
         <th>
           <div style="display: flex; flex-direction: column; align-items: start; height: 100%;">
-            <span>Procedure Name</span>
-            <button class="createNewRole" (click)="openCreateRole()">Create New Role</button>
+            <span>Procedure Names</span>
           </div>
         </th>
         <th *ngFor="let role of rolesRequiredTraining">
@@ -37,11 +37,30 @@
   <div class="modal-content" (click)="$event.stopPropagation()">
     <h3>Create new Role</h3>
 
-    CONTENT
+    <div class="content">
+      <input type="text" placeholder="Role Name" #newRolesNameInput/>
+      <div *ngFor="let procedureName of procedures" class="procedure-section">
+        <span>{{procedureName}}</span>
+        <div class="radio-options">
+          <label>
+            <input type="radio" [name]="'procedureName'" value="0" (change)="setProcedureSelection(procedureName, 0)" />
+            Optional
+          </label>
+          <label>
+            <input type="radio" [name]="'procedureName'" value="1" (change)="setProcedureSelection(procedureName, 1)" />
+            If Performing
+          </label>
+          <label>
+            <input type="radio" [name]="'procedureName'" value="2" (change)="setProcedureSelection(procedureName, 2)" />
+            Mandatory
+          </label>
+        </div>
+      </div>
+    </div>
 
     <div class="modal-actions">
       <button class="button close-btn" (click)="closeCreateRole()">Close</button>
-      <button class="button create-btn">Create</button>
+      <button class="button create-btn" (click)="submitCreateRole(newRolesNameInput.value)">Create</button>
     </div>
   </div>
 </div>

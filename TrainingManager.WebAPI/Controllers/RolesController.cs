@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TrainingManager.DataAccess.DAOs;
+using TrainingManager.DataAccess.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -33,8 +34,10 @@ public class RolesController : ControllerBase
 
     // POST api/<RolesController>
     [HttpPost]
-    public void Post([FromBody]string value)
+    public async Task<ActionResult<int>> Post([FromBody] Role entity)
     {
+        int res = await _roleDAO.CreateAsync(entity);
+        return Ok(res);
     }
 
     // PUT api/<RolesController>/5
