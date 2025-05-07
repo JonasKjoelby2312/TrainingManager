@@ -10,4 +10,6 @@ namespace TrainingManager.DataAccess.DAOs;
 public interface IRolesRequiredTrainingDAO
 {
     Task<IEnumerable<RolesRequiredTraining>> GetAllRolesRequiredTraining();
+
+    Task UpdateTrainingRequirementAsync(UpdateTrainingRequirementDto dto);
 }

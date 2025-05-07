@@ -8,11 +8,12 @@ using TrainingManager.DataAccess.Models;
 
 namespace TrainingManager.DataAccess.DAOs;
 
-public class RolesRequiredTrainingDAO : BaseDAO, IRolesRequiredTrainingDAO
+public class RolesRequiredTrainingDAO : BaseDAO, IRolesRequiredTrainingDAO  
 {
     private readonly string GET_ALL_ROLES_ID_AND_NAME = "SELECT \r\n    role_id,\r\n    role_name\r\nFROM \r\n    treat_roles\r\nORDER BY \r\n    role_name;";
-    private readonly string GET_ROLES_REQUIRED_TRAINING_TYPE = "SELECT \r\n    tp.procedure_name,\r\n    rtt.required_type\r\nFROM \r\n    required_training_types rtt\r\nJOIN \r\n    treat_roles tr ON rtt.fk_role_id = tr.role_id\r\nJOIN \r\n    treat_procedures tp ON rtt.fk_treat_procedure_id = tp.procedure_id\r\nWHERE \r\n    tr.role_name = @RoleName \r\nORDER BY \r\n    tp.procedure_name, rtt.required_type;";
+    private readonly string GET_ROLES_REQUIRED_TRAINING_TYPE = "SELECT tp.procedure_name, rtt.required_type FROM  required_training_types rtt JOIN treat_roles tr ON rtt.fk_role_id = tr.role_id JOIN treat_procedures tp ON rtt.fk_treat_procedure_id = tp.procedure_id WHERE tr.role_name = @RoleName ORDER BY tp.procedure_id, rtt.required_type;";
 
+    private readonly string UPDATE_REQUIRED_TYPE_SQL = "UPDATE required_training_types SET required_type = @RequiredType WHERE fk_role_id = @RoleId AND fk_treat_procedure_id = ( SELECT procedure_id FROM treat_procedures WHERE procedure_name = @ProcedureName )";
     public RolesRequiredTrainingDAO(string connectionString) : base(connectionString)
     {
     }
@@ -55,4 +56,12 @@ public class RolesRequiredTrainingDAO : BaseDAO, IRolesRequiredTrainingDAO
             throw new Exception($"Could not get roles and their required training types, message was: {ex.Message}", ex);
         }
     }
+
+    public async Task UpdateTrainingRequirementAsync(UpdateTrainingRequirementDto dto)
+    {
+        using var connection = CreateConnection();
+        await connection.ExecuteAsync(UPDATE_REQUIRED_TYPE_SQL, dto);
+    }
+
+
 }

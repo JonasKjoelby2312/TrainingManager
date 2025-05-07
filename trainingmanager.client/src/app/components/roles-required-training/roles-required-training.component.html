@@ -22,11 +22,13 @@
       <tr *ngFor="let procedureName of procedures">
         <td>{{ procedureName }}</td>
         <td *ngFor="let role of rolesRequiredTraining"
-            [ngClass]="'required-' + role.trainingRequiredTypes[procedureName]">
+            [ngClass]="'required-' + role.trainingRequiredTypes[procedureName]"
+            (click)="openEditModal(role, procedureName)">
           {{ role.trainingRequiredTypes[procedureName] }}
         </td>
       </tr>
     </tbody>
+
   </table>
 </div>
 
@@ -91,6 +93,36 @@
     <div class="modal-actions">
       <button (click)="onCancelProcedure()" class="close-btn">Cancel</button>
       <button (click)="onCreateProcedure(procedureInput.value)" class="create-btn">Create</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Edit Training Requirement Modal -->
+<div *ngIf="isEditModalActive && selectedRole && selectedProcedure" class="create-role-modal" (click)="closeEditModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Edit Training Requirement</h2>
+    <p><strong>Procedure:</strong> {{ selectedProcedure }}</p>
+    <p><strong>Role:</strong> {{ selectedRole.roleName }}</p>
+
+    <div class="radio-options">
+      <label>
+        <input type="radio" name="edit-type" [checked]="editValue === 0" (change)="editValue = 0" />
+        Optional
+      </label>
+      <label>
+        <input type="radio" name="edit-type" [checked]="editValue === 1" (change)="editValue = 1" />
+        If Performing
+      </label>
+      <label>
+        <input type="radio" name="edit-type" [checked]="editValue === 2" (change)="editValue = 2" />
+        Mandatory
+      </label>
+    </div>
+
+    <div class="modal-actions">
+      <button class="close-btn" (click)="closeEditModal()">Cancel</button>
+      <button class="create-btn" (click)="confirmEdit()">Save</button>
     </div>
   </div>
 </div>

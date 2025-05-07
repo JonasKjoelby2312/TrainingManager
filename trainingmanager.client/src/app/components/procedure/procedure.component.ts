@@ -24,7 +24,7 @@ export class ProcedureComponent implements OnInit {
       
     });
   }
-  
+  // Opens the modal for revision history(Happens when clicking on a procedure in the procedure view)
   openRevisionHistory(procedure: ProcedureWithRevision): void {
     this.selectedProcedure = procedure;
     this.showModal = true;
@@ -40,7 +40,7 @@ export class ProcedureComponent implements OnInit {
     });
   }
 
-  //Closes the modal view and removes the data
+  //Closes the modal view for revision history and removes the data
   closeModal(): void {
     this.showModal = false;
     this.revisionHistory = [];

@@ -39,9 +39,11 @@ namespace TrainingManager.WebAPI.Controllers
         }
 
         // PUT api/<RolesRequiredTrainingController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async Task<ActionResult> Put([FromBody] UpdateTrainingRequirementDto dto)
         {
+           await _rolesRequiredTraining.UpdateTrainingRequirementAsync(dto);
+            return Ok();
         }
 
         // DELETE api/<RolesRequiredTrainingController>/5

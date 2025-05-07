@@ -29,6 +29,11 @@ export class RolesRequiredTrainingComponent {
   roleInputValue: string = '';
   trainingSelectionsCreateRole: { [procedureName: string]: number } = {};
 
+   isEditModalActive: boolean = false;
+  selectedRole: RolesRequiredTraining | null = null;
+  selectedProcedure: string | null = null;
+  editValue: number = 0;
+
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
@@ -149,5 +154,52 @@ export class RolesRequiredTrainingComponent {
     this.isCreateProcedureActive = false;
     this.trainingSelectionsCreateProcedure = {};
     this.procedureInputValue = '';
+
+    
   }
+
+  openEditModal(role: RolesRequiredTraining, procedureName: string) {
+    this.selectedRole = role;
+    this.selectedProcedure = procedureName;
+    this.editValue = role.trainingRequiredTypes[procedureName] ?? 0;
+    this.isEditModalActive = true;
+  }
+
+  closeEditModal() {
+    this.selectedRole = null;
+    this.selectedProcedure = null;
+    this.editValue = 0;
+    this.isEditModalActive = false;
+  }
+
+  confirmEdit() {
+    if (this.selectedRole && this.selectedProcedure) {
+      const updatedValue = this.editValue;
+
+     
+      this.selectedRole.trainingRequiredTypes[this.selectedProcedure] = updatedValue;
+
+      
+      const requestBody = {
+        roleId: this.selectedRole.roleId,
+        procedureName: this.selectedProcedure,
+        requiredType: updatedValue
+      };
+
+      
+      this.http.put('https://localhost:7227/api/RolesRequiredTraining', requestBody)
+        .subscribe({
+          next: () => {
+            console.log('Training requirement updated');
+          },
+          error: (err) => {
+            console.error('Failed to update requirement:', err);
+          }
+        });
+
+      // Close modal
+      this.closeEditModal();
+    }
+  }
+
 }
