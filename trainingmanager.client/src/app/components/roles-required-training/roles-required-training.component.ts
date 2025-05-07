@@ -116,6 +116,7 @@ export class RolesRequiredTrainingComponent {
     
   }
 
+  //EDIT MODAL
   openEditModal(role: RolesRequiredTraining, procedureName: string) {
     this.selectedRole = role;
     this.selectedProcedure = procedureName;
@@ -155,7 +156,7 @@ export class RolesRequiredTrainingComponent {
           }
         });
 
-      // Close modal
+      
       this.closeEditModal();
     }
   }
