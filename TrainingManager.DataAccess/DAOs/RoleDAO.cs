@@ -33,7 +33,7 @@ public class RoleDAO : BaseDAO, IRoleDAO
             {
                 int procedureId = await connection.QuerySingleAsync<int>(GET_PROCEDURE_ID_BY_PROCEDURE_NAME, new { ProcedureName = procedureName }, transaction);
                 int test = entity.ProceduresRequiredTypes[procedureName];
-                await connection.QuerySingleAsync(INSERT_INTO_REQUIRED_TRAINING_TYPE, new { RequiredType = entity.ProceduresRequiredTypes[procedureName], RoleId = newRoleId, ProcedureId = procedureId }, transaction);
+                await connection.ExecuteAsync(INSERT_INTO_REQUIRED_TRAINING_TYPE, new { RequiredType = entity.ProceduresRequiredTypes[procedureName], RoleId = newRoleId, ProcedureId = procedureId }, transaction);
             }
             transaction.Commit();
             connection.Close();

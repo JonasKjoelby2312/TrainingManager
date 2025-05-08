@@ -38,20 +38,20 @@
     <h3>Create new Role</h3>
 
     <div class="content">
-      <input type="text" placeholder="Role Name" #newRolesNameInput/>
+      <input type="text" placeholder="Role Name" #newRolesNameInput class="role-name-input"/>
       <div *ngFor="let procedureName of procedures" class="procedure-section">
         <span>{{procedureName}}</span>
         <div class="radio-options">
           <label>
-            <input type="radio" [name]="'procedureName'" value="0" (change)="setProcedureSelection(procedureName, 0)" />
+            <input type="radio" [name]="procedureName" value="0" (change)="setProcedureSelection(procedureName, 0)" />
             Optional
           </label>
           <label>
-            <input type="radio" [name]="'procedureName'" value="1" (change)="setProcedureSelection(procedureName, 1)" />
+            <input type="radio" [name]="procedureName" value="1" (change)="setProcedureSelection(procedureName, 1)" />
             If Performing
           </label>
           <label>
-            <input type="radio" [name]="'procedureName'" value="2" (change)="setProcedureSelection(procedureName, 2)" />
+            <input type="radio" [name]="procedureName" value="2" (change)="setProcedureSelection(procedureName, 2)" />
             Mandatory
           </label>
         </div>

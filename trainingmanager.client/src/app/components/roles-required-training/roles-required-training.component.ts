@@ -70,13 +70,10 @@ export class RolesRequiredTrainingComponent {
     console.log('Selected Procedure Required Types:', this.trainingSelectionsCreateRole);
 
     const requestBody = {
-      roleName: roleName,
-      proceduresRequiredTrainingList: Object.entries(this.trainingSelectionsCreateRole).map(
-        ([procedureName, requiredType]) => ({
-          procedureName: procedureName,
-          requiredType: requiredType
-        })
-      )
+      id: -1,
+      name: roleName,
+      isActive: true,
+      proceduresRequiredTypes: this.trainingSelectionsCreateRole
     };
 
     this.http.post('https://localhost:7227/api/Roles', requestBody)
@@ -94,6 +91,8 @@ export class RolesRequiredTrainingComponent {
     this.isCreateProcedureActive = false;
     this.trainingSelectionsCreateProcedure = {};
     this.procedureInputValue = '';
+    this.closeCreateRole();
+    this.ngOnInit();
   }
 
   // Show modal
