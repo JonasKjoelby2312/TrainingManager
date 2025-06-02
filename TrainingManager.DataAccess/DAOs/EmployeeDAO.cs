@@ -157,7 +157,7 @@ public class EmployeeDAO : BaseDAO, IEmployeeDAO
             var employeesCurrRolesInDB = await connection.QueryAsync<string>(GET_EMPLOYEES_ROLES_BY_EMPLOYEE_ID, new { EmployeeId = entity.EmployeeId }, transaction);
 
             //Find the ones to remove
-            List<string> updatedRoles = entity.Roles;
+            List<string> updatedRoles = new List<string>(entity.Roles);
             List<string> rolesToRemove = new List<string>();
             foreach (var roleInDB in employeesCurrRolesInDB)
             {

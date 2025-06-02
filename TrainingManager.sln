@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingManager.DataAccess"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingManager.WebAPI", "TrainingManager.WebAPI\TrainingManager.WebAPI.csproj", "{DD7218CE-2499-45A7-8E55-8F50162DF8DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "trainingmanager.NUnit", "trainingmanager.NUnit\trainingmanager.NUnit.csproj", "{AADD430A-A831-4638-8D4A-8E1D25B65188}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{DD7218CE-2499-45A7-8E55-8F50162DF8DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD7218CE-2499-45A7-8E55-8F50162DF8DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD7218CE-2499-45A7-8E55-8F50162DF8DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AADD430A-A831-4638-8D4A-8E1D25B65188}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AADD430A-A831-4638-8D4A-8E1D25B65188}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AADD430A-A831-4638-8D4A-8E1D25B65188}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AADD430A-A831-4638-8D4A-8E1D25B65188}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
