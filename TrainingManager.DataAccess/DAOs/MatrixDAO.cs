@@ -19,7 +19,7 @@ public class MatrixDAO : BaseDAO, IMatrixDAO
     }
 
 
-    public async Task<MatrixParent> GetAdminComplienceMatrixAsync()
+    public async Task<MatrixParent> GetAdminComplianceMatrixAsync()
     {
         using var connection = CreateConnection();
         connection.Open();

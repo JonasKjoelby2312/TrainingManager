@@ -21,7 +21,7 @@ public class AdminComplianceMatrixController : ControllerBase
     [HttpGet]
     public async Task<MatrixParent> Get()
     {
-        MatrixParent res = await _matrixDAO.GetAdminComplienceMatrixAsync();
+        MatrixParent res = await _matrixDAO.GetAdminComplianceMatrixAsync();
         return res;
     }
 

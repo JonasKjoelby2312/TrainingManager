@@ -41,7 +41,7 @@ public class AdminCompliancePerformanceTests
         var stopwatch = Stopwatch.StartNew();
 
         //Act
-        MatrixParent res = await _matrixDAO.GetAdminComplienceMatrixAsync();
+        MatrixParent res = await _matrixDAO.GetAdminComplianceMatrixAsync();
 
         //Assert
         stopwatch.Stop();
