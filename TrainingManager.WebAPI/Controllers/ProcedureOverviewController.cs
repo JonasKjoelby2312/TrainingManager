@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TrainingManager.DataAccess.DAOs;
 using TrainingManager.DataAccess.Models;
+using TrainingManager.WebAPI.DTOs;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace TrainingManager.WebAPI.Controllers;
@@ -40,7 +41,7 @@ public class ProcedureOverviewController : ControllerBase
 
     // POST api/<ProcedureOverviewController>
     [HttpPost]
-    public async Task<ActionResult<int>> Post([FromBody] CreateProcedureDto dto)
+    public async Task<ActionResult<int>> Post([FromBody] CreateProcedureDTO dto)
     {
         try
         {

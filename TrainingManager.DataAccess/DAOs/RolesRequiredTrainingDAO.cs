@@ -57,7 +57,7 @@ public class RolesRequiredTrainingDAO : BaseDAO, IRolesRequiredTrainingDAO
         }
     }
 
-    public async Task UpdateTrainingRequirementAsync(UpdateTrainingRequirementDto dto)
+    public async Task UpdateTrainingRequirementAsync(UpdateTrainingRequirement dto)
     {
         using var connection = CreateConnection();
         await connection.ExecuteAsync(UPDATE_REQUIRED_TYPE_SQL, dto);

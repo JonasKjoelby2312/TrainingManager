@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace TrainingManager.DataAccess.Models
 {
-    public class TrainingRequirementDto
+    public class UpdateTrainingRequirement
     {
         public int RoleId { get; set; }
+        public string ProcedureName { get; set; }
         public int RequiredType { get; set; }
     }
 }

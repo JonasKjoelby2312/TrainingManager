@@ -40,7 +40,7 @@ namespace TrainingManager.WebAPI.Controllers
 
         // PUT api/<RolesRequiredTrainingController>/5
         [HttpPut]
-        public async Task<ActionResult> Put([FromBody] UpdateTrainingRequirementDto dto)
+        public async Task<ActionResult> Put([FromBody] UpdateTrainingRequirement dto)
         {
            await _rolesRequiredTraining.UpdateTrainingRequirementAsync(dto);
             return Ok();

@@ -11,5 +11,5 @@ public interface IRolesRequiredTrainingDAO
 {
     Task<IEnumerable<RolesRequiredTraining>> GetAllRolesRequiredTraining();
 
-    Task UpdateTrainingRequirementAsync(UpdateTrainingRequirementDto dto);
+    Task UpdateTrainingRequirementAsync(UpdateTrainingRequirement dto);
 }
