@@ -83,7 +83,7 @@ export class EmployeesComponent {
 
   loadAllEmployees() {
     this.tableRows = [];
-    this.http.get<Employee[]>('https://localhost:7227/api/EmployeeOverview').subscribe(data => {
+    this.http.get<Employee[]>('https://localhost:7227/api/Employees').subscribe(data => {
       this.tableRows = data;
     }, error => console.log(error));
   }
@@ -97,7 +97,7 @@ export class EmployeesComponent {
       roles: [...this.selectedRoles],
       employeeTrainingStatuses: {}
     };
-    this.http.post<number>('https://localhost:7227/api/EmployeeOverview', this.newEmployee)
+    this.http.post<number>('https://localhost:7227/api/Employees', this.newEmployee)
       .subscribe(() => {
         this.closeCreateModal();
         this.loadAllEmployees();
@@ -144,7 +144,7 @@ export class EmployeesComponent {
   }
 
   updateEmployee(employee: Employee): Observable<boolean> {
-    return this.http.put<boolean>('https://localhost:7227/api/EmployeeOverview/' + employee.employeeId, employee);
+    return this.http.put<boolean>('https://localhost:7227/api/Employees' + employee.employeeId, employee);
   }
 
   onTempEditRoleChange(event: any) {

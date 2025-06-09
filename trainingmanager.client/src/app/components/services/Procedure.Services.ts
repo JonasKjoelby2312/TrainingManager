@@ -11,9 +11,9 @@ export interface ProcedureWithRevision {
 
 @Injectable({ providedIn: 'root' })
 export class ProcedureService {
-  //private apiUrl = 'https://localhost:7139/api/ProcedureOverview';
+
   
- private apiUrl = 'https://localhost:7227/api/ProcedureOverview'; 
+ private apiUrl = 'https://localhost:7227/api/Procedures'; 
 
   constructor(private http: HttpClient) { }
 

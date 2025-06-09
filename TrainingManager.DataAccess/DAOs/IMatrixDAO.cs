@@ -10,4 +10,5 @@ namespace TrainingManager.DataAccess.DAOs;
 public interface IMatrixDAO
 {
     Task<MatrixParent> GetAdminComplianceMatrixAsync();
+                       
 }

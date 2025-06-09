@@ -8,11 +8,11 @@ namespace TrainingManager.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeeOverviewController : ControllerBase
+    public class EmployeesController : ControllerBase
     {
         private IEmployeeDAO _employeeDAO;
 
-        public EmployeeOverviewController(IEmployeeDAO EmployeeDAO)
+        public EmployeesController(IEmployeeDAO EmployeeDAO)
         {
             _employeeDAO = EmployeeDAO;
         }

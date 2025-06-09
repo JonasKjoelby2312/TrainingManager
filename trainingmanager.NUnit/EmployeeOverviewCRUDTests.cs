@@ -9,14 +9,14 @@ namespace trainingmanager.NUnit;
 
 public class EmployeeOverviewCRUDTests
 {
-    private EmployeeOverviewController _controller;
+    private EmployeesController _controller;
     private EmployeeDAO _employeeDAO;
 
     [SetUp]
     public void Setup()
     {
         _employeeDAO = new EmployeeDAO("Server=tcp:hildur.ucn.dk,1433;Database=DMA-CSD-S232_10503097;User ID=DMA-CSD-S232_10503097;Password=Password1!;");
-        _controller = new EmployeeOverviewController(_employeeDAO);
+        _controller = new EmployeesController(_employeeDAO);
     }
 
     [Test]

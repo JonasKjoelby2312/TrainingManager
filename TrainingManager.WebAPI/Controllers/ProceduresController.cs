@@ -9,11 +9,11 @@ namespace TrainingManager.WebAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ProcedureOverviewController : ControllerBase
+public class ProceduresController : ControllerBase
 {
     private IProcedureDAO _procedureDAO;
 
-    public ProcedureOverviewController(IProcedureDAO procedureDAO)
+    public ProceduresController(IProcedureDAO procedureDAO)
     {
         _procedureDAO = procedureDAO;
     }

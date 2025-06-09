@@ -34,7 +34,7 @@ export class AdminComplianceComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.http.get<AdminComplianceComponent>('https://localhost:7227/api/AdminComplianceMatrix').subscribe(data => {
+    this.http.get<AdminComplianceComponent>('https://localhost:7227/api/AdminCompliances').subscribe(data => {
       this.matrixObject = data;
       this.matrixData = this.matrixObject.matrix;
     }, error => {

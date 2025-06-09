@@ -29,7 +29,7 @@ export class AdminEmployeeComplianceComponent {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get<Employee[]>('https://localhost:7227/api/EmployeeOverview/').subscribe(data => {
+    this.http.get<Employee[]>('https://localhost:7227/api/Employees').subscribe(data => {
       console.log('EmployeeCompliance', data)
       this.allEmployees = data;
       for (var i = 0; i < data.length; i++) {
@@ -50,7 +50,7 @@ export class AdminEmployeeComplianceComponent {
 
   searchForCompliance(searchString: string) {
     //const searchInput = <HTMLInputElement>document.getElementById("searchInput");
-    let apiConnectionString = 'https://localhost:7227/api/EmployeeCompliance/' + searchString; //searchInput.value.toString();
+    let apiConnectionString = 'https://localhost:7227/api/EmployeeCompliances/' + searchString; //searchInput.value.toString();
     this.http.get<MatrixParent>(apiConnectionString).subscribe(data => {
       this.tableRows = data.matrix;
     });

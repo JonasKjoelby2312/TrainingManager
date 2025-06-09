@@ -7,14 +7,14 @@ namespace trainingmanager.NUnit;
 
 public class AdminCompliancePerformanceTests
 {
-    private AdminComplianceMatrixController _controller;
+    private AdminCompliancesController _controller;
     private MatrixDAO _matrixDAO;
 
     [SetUp]
     public void Setup()
     {
         _matrixDAO = new MatrixDAO("Server=tcp:hildur.ucn.dk,1433;Database=DMA-CSD-S232_10503097;User ID=DMA-CSD-S232_10503097;Password=Password1!;");
-        _controller = new AdminComplianceMatrixController(_matrixDAO);
+        _controller = new AdminCompliancesController(_matrixDAO);
     }
 
     [Test]

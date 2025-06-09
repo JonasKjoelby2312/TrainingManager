@@ -8,11 +8,11 @@ namespace TrainingManager.WebAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class AdminComplianceMatrixController : ControllerBase
+public class AdminCompliancesController : ControllerBase
 {
     IMatrixDAO _matrixDAO;
 
-    public AdminComplianceMatrixController(IMatrixDAO matrixDAO)
+    public AdminCompliancesController(IMatrixDAO matrixDAO)
     {
         _matrixDAO = matrixDAO;
     }
